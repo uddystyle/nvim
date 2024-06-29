@@ -25,3 +25,15 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.wo.conceallevel = 0
   end,
 })
+
+-- automatically switch to insert mode when entering a Term buffer
+vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
+  group = vim.api.nvim_create_augroup("openTermInsert", {}),
+  callback = function(args)
+    -- we don't use vim.startswith() and look for test:// because of vim-test
+    -- vim-test starts tests in a terminal, which we want to keep in normal mode
+    if vim.endswith(vim.api.nvim_buf_get_name(args.buf), "zsh") then
+      vim.cmd("startinsert")
+    end
+  end,
+})
