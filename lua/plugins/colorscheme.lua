@@ -1,11 +1,14 @@
 return {
   "folke/tokyonight.nvim",
-  lazy = true,
+  lazy = false,
+  priority = 1000,
   opts = {
-    transparent = true,
+    style = "storm",
+    terminal_colors = true,
+    -- transparent = true,
     styles = {
-      sidebars = "transparent",
-      floats = "transparent",
+      -- sidebars = "transparent",
+      -- floats = "transparent",
     },
   },
 }

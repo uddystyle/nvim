@@ -48,5 +48,26 @@ keymap.set("n", "<leader>bd", ":bd!<CR>", opts)
 -- Toggle neotree
 keymap.set("n", "<leader>n", ":Neotree toggle left<CR>", opts)
 
--- Create terminal buffer
-keymap.set("n", "<leader>tt", ":terminal<CR>", opts)
+-- Close terminal window, even if we are in insert mode
+keymap.set("t", "<leader>q", "<C-\\><C-n>:q<cr>", { noremap = true, silent = true })
+keymap.set("t", "<C-[>", "<C-\\><C-n>", { noremap = true, silent = true })
+
+-- Open terminal in vertical and horizontal split
+keymap.set("n", "<leader>tv", "<cmd>vnew term://zsh<CR>", { noremap = true, silent = true })
+keymap.set("n", "<leader>ts", ":botright split | terminal zsh<CR>", { noremap = true, silent = true })
+
+-- Open terminal in vertical and horizontal split, inside the terminal
+keymap.set("t", "<leader>tv", "<c-w><cmd>vnew term://zsh<CR>", { noremap = true, silent = true })
+keymap.set("t", "<leader>ts", ":botright split | terminal zsh<CR>", { noremap = true, silent = true })
+
+function ToggleTerm()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_name(buf):match("term://") then
+      vim.api.nvim_buf_delete(buf, { force = true })
+      return
+    end
+  end
+  vim.cmd("botright split term://zsh")
+end
+
+keymap.set("n", "<leader>tt", ":lua ToggleTerm()<CR>", opts)
