@@ -45,9 +45,6 @@ keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
 -- Delete buffer
 keymap.set("n", "<leader>bd", ":bd!<CR>", opts)
 
--- Toggle neotree
-keymap.set("n", "<leader>n", ":Neotree toggle left<CR>", opts)
-
 -- Close terminal window, even if we are in insert mode
 keymap.set("t", "<leader>q", "<C-\\><C-n>:q<cr>", { noremap = true, silent = true })
 keymap.set("t", "<C-[>", "<C-\\><C-n>", { noremap = true, silent = true })
