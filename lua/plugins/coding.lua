@@ -57,7 +57,7 @@ return {
 
             item = lspkind.cmp_format({
               mode = "symbol_text",
-              max_width = 30,
+              max_width = 24,
               ellipsis_char = "…",
               menu = {},
             })(_, item)
@@ -72,9 +72,11 @@ return {
         window = {
           completion = cmp.config.window.bordered({
             border = "rounded",
+            scrollbar = false,
           }),
           documentation = cmp.config.window.bordered({
             border = "rounded",
+            scrollbar = false,
           }),
         },
         experimental = {
