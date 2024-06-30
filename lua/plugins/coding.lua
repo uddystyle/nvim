@@ -45,6 +45,7 @@ return {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "path" },
+          { name = "crates" },
         }, {
           { name = "buffer" },
         }),
@@ -74,7 +75,6 @@ return {
           },
         },
         sorting = defaults.sorting,
-        table.insert(opts.sources, { name = "crates" }),
       }
     end,
     main = "lazyvim.util.cmp",
@@ -82,6 +82,8 @@ return {
 
   {
     "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    build = "make install_jsregexp",
     dependencies = {
       {
         "rafamadriz/friendly-snippets",
