@@ -8,6 +8,8 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+
+      "onsails/lspkind.nvim",
     },
     -- Not all LSP servers add brackets when completing a function.
     -- To better deal with this, LazyVim adds a custom option to cmp,
@@ -18,12 +20,12 @@ return {
     --   auto_brackets = { "python" }
     -- }
     -- ```
-    opts = function(_, opts)
+    opts = function()
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
       local defaults = require("cmp.config.default")()
+      local lspkind = require("lspkind")
       local auto_select = true
-      local max_width = 200
       return {
         auto_brackets = {}, -- configure any filetype to auto add brackets
         completion = {
@@ -51,13 +53,19 @@ return {
         }),
         formatting = {
           format = function(_, item)
-            local icons = LazyVim.config.icons.kinds
-            if icons[item.kind] then
-              item.kind = icons[item.kind] .. item.kind
-            end
-            if #item.abbr > max_width then
-              item.abbr = string.sub(item.abbr, 1, max_width - 1) .. "…"
-            end
+            -- local icons = LazyVim.config.icons.kinds
+
+            item = lspkind.cmp_format({
+              mode = "symbol_text",
+              max_width = 30,
+              ellipsis_char = "…",
+              menu = {},
+            })(_, item)
+
+            -- if icons[item.kind] then
+            --   item.kind = icons[item.kind] .. item.kind
+            -- end
+
             return item
           end,
         },

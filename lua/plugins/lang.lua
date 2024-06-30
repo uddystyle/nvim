@@ -60,6 +60,9 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "Saecki/crates.nvim",
+    },
     opts = {
       servers = {
         taplo = {
