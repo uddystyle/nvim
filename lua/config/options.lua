@@ -4,6 +4,11 @@
 
 vim.g.mapleader = ","
 
+vim.cmd([[
+  let $LANG = 'en_US.UTF-8'
+  let $LC_ALL = 'en_US.UTF-8'
+]])
+
 vim.cmd("language messages en_US.utf-8")
 
 -- disable providers

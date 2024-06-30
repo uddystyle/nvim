@@ -32,8 +32,8 @@ keymap.set("n", "<C-l>", "$", opts)
 keymap.set("n", "O", [[:lua vim.fn.append(vim.fn.line('.'), '')<CR>j]], opts)
 
 -- Fast saving
-keymap.set("n", "<Leader>w", ":write!<CR>", opts)
-keymap.set("n", "<Leader>q", ":q!<CR>", opts)
+keymap.set("n", "<Leader>w", "<Cmd>write!<CR>", opts)
+keymap.set("n", "<Leader>q", "<Cmd>q!<CR>", opts)
 
 -- Move Right
 keymap.set("i", "<C-f>", "<Right>", opts)
