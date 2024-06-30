@@ -371,4 +371,9 @@ return {
     --   require("nvim-treesitter.configs").setup(opts)
     -- end,
   },
+
+  {
+    "folke/flash.nvim",
+    enabled = false,
+  },
 }
