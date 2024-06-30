@@ -1,4 +1,5 @@
 return {
+
   {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
@@ -128,6 +129,7 @@ return {
       delete_check_events = "TextChanged",
     },
   },
+
   {
     "smjonas/inc-rename.nvim",
     cmd = "IncRename",
