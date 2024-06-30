@@ -149,4 +149,9 @@ return {
       })
     end,
   },
+
+  {
+    "Bilal2453/luvit-meta",
+    enabled = false,
+  },
 }

@@ -376,4 +376,14 @@ return {
     "folke/flash.nvim",
     enabled = false,
   },
+
+  {
+    "nvim-pack/nvim-spectre",
+    enabled = false,
+  },
+
+  {
+    "falke/todo-comments.nvim",
+    enabled = false,
+  },
 }
