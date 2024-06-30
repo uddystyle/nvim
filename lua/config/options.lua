@@ -15,3 +15,7 @@ vim.g.autoformat = true
 
 -- Smoothscroll
 vim.o.smoothscroll = true
+
+-- Terminals configuration for colorscheme
+vim.o.termguicolors = true
+vim.o.background = "dark"

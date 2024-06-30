@@ -37,3 +37,23 @@ vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
     end
   end,
 })
+
+-- Display diagnostics when cursor hold the underline
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+  pattern = "*",
+  callback = function()
+    local opts = {
+      focusable = false,
+      close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+      border = "rounded",
+      source = "always",
+      prefix = " ",
+      scope = "cursor",
+    }
+    vim.diagnostic.open_float(nil, opts)
+  end,
+})
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  virtual_text = false,
+})
