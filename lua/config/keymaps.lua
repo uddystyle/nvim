@@ -43,19 +43,19 @@ keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", opts)
 keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
 
 -- Delete buffer
-keymap.set("n", "<leader>bd", ":bd!<CR>", opts)
+keymap.set("n", "<leader>bd", "<Cmd>bd!<CR>", opts)
 
 -- Close terminal window, even if we are in insert mode
-keymap.set("t", "<leader>q", "<C-\\><C-n>:q<cr>", { noremap = true, silent = true })
+keymap.set("t", "<leader>q", "<C-\\><C-n><Cmd>q<CR>", { noremap = true, silent = true })
 keymap.set("t", "<C-[>", "<C-\\><C-n>", { noremap = true, silent = true })
 
 -- Open terminal in vertical and horizontal split
-keymap.set("n", "<leader>tv", "<cmd>vnew term://zsh<CR>", { noremap = true, silent = true })
-keymap.set("n", "<leader>ts", ":botright split | terminal zsh<CR>", { noremap = true, silent = true })
+keymap.set("n", "<leader>tv", "<Cmd>vnew term://zsh<CR>", { noremap = true, silent = true })
+keymap.set("n", "<leader>ts", "<Cmd>botright split | terminal zsh<CR>", { noremap = true, silent = true })
 
 -- Open terminal in vertical and horizontal split, inside the terminal
-keymap.set("t", "<leader>tv", "<c-w><cmd>vnew term://zsh<CR>", { noremap = true, silent = true })
-keymap.set("t", "<leader>ts", ":botright split | terminal zsh<CR>", { noremap = true, silent = true })
+keymap.set("t", "<leader>tv", "<C-w><Cmd>vnew term://zsh<CR>", { noremap = true, silent = true })
+keymap.set("t", "<leader>ts", "<Cmd>botright split | terminal zsh<CR>", { noremap = true, silent = true })
 
 function ToggleTerm()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -67,4 +67,4 @@ function ToggleTerm()
   vim.cmd("botright split term://zsh")
 end
 
-keymap.set("n", "<leader>tt", ":lua ToggleTerm()<CR>", opts)
+keymap.set("n", "<leader>tt", "<Cmd>lua ToggleTerm()<CR>", opts)
