@@ -12,28 +12,28 @@ return {
       {
         "<leader>n",
         function()
-          require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
+          require("neo-tree.command").execute({ toggle = true, position = "right", dir = LazyVim.root() })
         end,
         desc = "Explorer NeoTree (Root Dir)",
       },
       {
         "<leader>N",
         function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+          require("neo-tree.command").execute({ toggle = true, position = "right", dir = vim.uv.cwd() })
         end,
         desc = "Explorer NeoTree (cwd)",
       },
       {
         "<leader>ge",
         function()
-          require("neo-tree.command").execute({ source = "git_status", toggle = true })
+          require("neo-tree.command").execute({ source = "git_status", toggle = true, position = "right" })
         end,
         desc = "Git Explorer",
       },
       {
         "<leader>be",
         function()
-          require("neo-tree.command").execute({ source = "buffers", toggle = true })
+          require("neo-tree.command").execute({ source = "buffers", toggle = true, position = "right" })
         end,
         desc = "Buffer Explorer",
       },
@@ -79,12 +79,6 @@ return {
         },
       },
       window = {
-        position = "float",
-        width = 30,
-        mapping_options = {
-          noremap = true,
-          nowait = true,
-        },
         mappings = {
           ["l"] = "open",
           ["h"] = "close_node",
