@@ -28,6 +28,9 @@ end, opts)
 keymap.set("n", "<C-h>", "^", opts)
 keymap.set("n", "<C-l>", "$", opts)
 
+keymap.set("v", "<C-h>", "^", opts)
+keymap.set("v", "<C-l>", "$", opts)
+
 -- New lines
 keymap.set("n", "O", [[:lua vim.fn.append(vim.fn.line('.'), '')<CR>j]], opts)
 
