@@ -1,167 +1,159 @@
 return {
 
-  -- version 3
-  {
-    "mfussenegger/nvim-dap",
-
-    dependencies = {
-      "rcarriga/nvim-dap-ui",
-    },
-
-    config = function()
-      local dap = require("dap")
-      local dapui = require("dapui")
-
-      dap.listeners.before.attach.dapui_config = function()
-        dapui.open()
-      end
-      dap.listeners.before.launch.dapui_config = function()
-        dapui.open()
-      end
-      dap.listeners.before.event_terminated.dapui_config = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited.dapui_config = function()
-        dapui.close()
-      end
-
-      vim.kaymap.set("n", "<leader>dt", dap.toggle_breakpoint, {})
-      vim.kaymap.set("n", "<leader>dc", dap.continue(), {})
-    end,
-  },
-
-  -- version 1
   -- {
   --   "mfussenegger/nvim-dap",
   --
-  --   recommended = true,
-  --   desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
-  --
   --   dependencies = {
+  --     "rcarriga/nvim-dap-ui",
+  --     "jbyuki/one-small-step-for-vimkind",
   --     {
-  --       "jbyuki/one-small-step-for-vimkind",
-  --       "rcarriga/nvim-dap-ui",
-  --
-  --     -- stylua: ignore
-  --     config = function()
-  --       local dap = require("dap")
-  --       dap.adapters.nlua = function(callback, conf)
-  --         local adapter = {
-  --           type = "server",
-  --           host = conf.host or "127.0.0.1",
-  --           port = conf.port or 8086,
-  --         }
-  --         if conf.start_neovim then
-  --           local dap_run = dap.run
-  --           dap.run = function(c)
-  --             adapter.port = c.port
-  --             adapter.host = c.host
-  --           end
-  --           require("osv").run_this()
-  --           dap.run = dap_run
-  --         end
-  --         callback(adapter)
-  --       end
-  --       dap.configurations.lua = {
-  --         {
-  --           type = "nlua",
-  --           request = "attach",
-  --           name = "Run this file",
-  --           start_neovim = {},
-  --         },
-  --         {
-  --           type = "nlua",
-  --           request = "attach",
-  --           name = "Attach to running Neovim instance (port = 8086)",
-  --           port = 8086,
-  --         },
-  --       }
-  --     end,
+  --       "theHamsta/nvim-dap-virtual-text",
+  --       opts = {},
   --     },
   --   },
-  --   -- stylua: ignore
+  --
+  --   config = function()
+  --     local dap = require("dap")
+  --     dap.adapters.lldb = {
+  --       type = "executable",
+  --       command = "/opt/homebrew/opt/llvm/bin/lldb",
+  --       name = "lldb",
+  --     }
+  --
+  --     if LazyVim.has("mason-nvim-dap.nvim") then
+  --       require("mason-nvim.dap").setup(LazyVim.opts("mason-nvim-dap.vim"))
+  --     end
+  --
+  --     for name, sign in pairs(LazyVim.config.icons.dap) do
+  --       sign = type(sign) == "table" and sign or { sign }
+  --       vim.fn.sign_define(
+  --         "Dap" .. name,
+  --         { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
+  --       )
+  --     end
+  --   end,
+  --
   --   keys = {
-  --     { "<leader>d", "", desc = "+debug", mode = {"n", "v"} },
-  --     { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
-  --     { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-  --     { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-  --     { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
-  --     { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-  --     { "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
-  --     { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
-  --     { "<leader>dj", function() require("dap").down() end, desc = "Down" },
-  --     { "<leader>dk", function() require("dap").up() end, desc = "Up" },
-  --     { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
-  --     { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
-  --     { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
-  --     { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
-  --     { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-  --     { "<leader>ds", function() require("dap").session() end, desc = "Session" },
-  --     { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
-  --     { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
-  --   },
-  -- },
-
-  -- version 2
-  --   {
-  --     "mfussenegger/nvim-dap",
-  --     recommended = true,
-  --     desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
-  --
-  --     dependencies = {
-  --       "rcarriga/nvim-dap-ui",
-  --       -- virtual text for the debugger
-  --       {
-  --         "theHamsta/nvim-dap-virtual-text",
-  --         opts = {},
-  --       },
+  --     { "<leader>d", "", desc = "+debug", mode = { "n", "v" } },
+  --     {
+  --       "<leader>dB",
+  --       function()
+  --         require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+  --       end,
+  --       desc = "Breakpoint Condition",
   --     },
-  --
-  -- -- stylua: ignore
-  -- keys = {
-  --   { "<leader>d", "", desc = "+debug", mode = {"n", "v"} },
-  --   { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
-  --   { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
-  --   { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
-  --   { "<leader>da", function() require("dap").continue({ before = get_args }) end, desc = "Run with Args" },
-  --   { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
-  --   { "<leader>dg", function() require("dap").goto_() end, desc = "Go to Line (No Execute)" },
-  --   { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
-  --   { "<leader>dj", function() require("dap").down() end, desc = "Down" },
-  --   { "<leader>dk", function() require("dap").up() end, desc = "Up" },
-  --   { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
-  --   { "<leader>do", function() require("dap").step_out() end, desc = "Step Out" },
-  --   { "<leader>dO", function() require("dap").step_over() end, desc = "Step Over" },
-  --   { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
-  --   { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
-  --   { "<leader>ds", function() require("dap").session() end, desc = "Session" },
-  --   { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
-  --   { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
-  -- },
-  --
-  --     config = function()
-  --       -- load mason-nvim-dap here, after all adapters have been setup
-  --       if LazyVim.has("mason-nvim-dap.nvim") then
-  --         require("mason-nvim-dap").setup(LazyVim.opts("mason-nvim-dap.nvim"))
-  --       end
-  --
-  --       vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
-  --
-  --       for name, sign in pairs(LazyVim.config.icons.dap) do
-  --         sign = type(sign) == "table" and sign or { sign }
-  --         vim.fn.sign_define(
-  --           "Dap" .. name,
-  --           { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-  --         )
-  --       end
-  --
-  --       -- setup dap config by VsCode launch.json file
-  --       local vscode = require("dap.ext.vscode")
-  --       local json = require("plenary.json")
-  --       vscode.json_decode = function(str)
-  --         return vim.json.decode(json.json_strip_comments(str))
-  --       end
-  --     end,
+  --     {
+  --       "<leader>db",
+  --       function()
+  --         require("dap").toggle_breakpoint()
+  --       end,
+  --       desc = "Toggle Breakpoint",
+  --     },
+  --     {
+  --       "<leader>dc",
+  --       function()
+  --         require("dap").continue()
+  --       end,
+  --       desc = "Continue",
+  --     },
+  --     {
+  --       "<leader>da",
+  --       function()
+  --         require("dap").continue({ before = get_args })
+  --       end,
+  --       desc = "Run with Args",
+  --     },
+  --     {
+  --       "<leader>dC",
+  --       function()
+  --         require("dap").run_to_cursor()
+  --       end,
+  --       desc = "Run to Cursor",
+  --     },
+  --     {
+  --       "<leader>dg",
+  --       function()
+  --         require("dap").goto_()
+  --       end,
+  --       desc = "Go to Line (No Execute)",
+  --     },
+  --     {
+  --       "<leader>di",
+  --       function()
+  --         require("dap").step_into()
+  --       end,
+  --       desc = "Step Into",
+  --     },
+  --     {
+  --       "<leader>dj",
+  --       function()
+  --         require("dap").down()
+  --       end,
+  --       desc = "Down",
+  --     },
+  --     {
+  --       "<leader>dk",
+  --       function()
+  --         require("dap").up()
+  --       end,
+  --       desc = "Up",
+  --     },
+  --     {
+  --       "<leader>dl",
+  --       function()
+  --         require("dap").run_last()
+  --       end,
+  --       desc = "Run Last",
+  --     },
+  --     {
+  --       "<leader>do",
+  --       function()
+  --         require("dap").step_out()
+  --       end,
+  --       desc = "Step Out",
+  --     },
+  --     {
+  --       "<leader>dO",
+  --       function()
+  --         require("dap").step_over()
+  --       end,
+  --       desc = "Step Over",
+  --     },
+  --     {
+  --       "<leader>dp",
+  --       function()
+  --         require("dap").pause()
+  --       end,
+  --       desc = "Pause",
+  --     },
+  --     {
+  --       "<leader>dr",
+  --       function()
+  --         require("dap").repl.toggle()
+  --       end,
+  --       desc = "Toggle REPL",
+  --     },
+  --     {
+  --       "<leader>ds",
+  --       function()
+  --         require("dap").session()
+  --       end,
+  --       desc = "Session",
+  --     },
+  --     {
+  --       "<leader>dt",
+  --       function()
+  --         require("dap").terminate()
+  --       end,
+  --       desc = "Terminate",
+  --     },
+  --     {
+  --       "<leader>dw",
+  --       function()
+  --         require("dap.ui.widgets").hover()
+  --       end,
+  --       desc = "Widgets",
+  --     },
   --   },
   -- },
 
@@ -170,26 +162,29 @@ return {
     version = "^4",
     lazy = false,
     config = function()
-      local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/"
+      local mason_registry = require("mason-registry")
+      local codelldb = mason_registry.get_package("codelldb")
+      local extension_path = codelldb:get_install_path() .. "/extension/"
       local codelldb_path = extension_path .. "adapter/codelldb"
-      local liblldb_path = extension_path .. "lldb/lib/liblldb"
-      local this_os = vim.uv.os_uname().sysname
+      local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
       local config = require("rustaceanvim.config")
-      if this_os:find("Windows") then
-        codelldb_path = extension_path .. "adapter\\codelldb.exe"
-        liblldb_path = extension_path .. "lldb\\bin\\liblldb.dll"
-      else
-        liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
-      end
+
       vim.g.rustaceanvim = {
         tools = {
-          auto_focus = true,
+          hover_actions = {
+            auto_focus = true,
+          },
         },
         server = {
+          capabilities = require("cmp_nvim_lsp").default_capabilities(),
           on_attach = function(_, bufnr)
             local opts = { noremap = true, silent = true }
             vim.keymap.set("n", "<leader>ca", function()
               vim.cmd.RustLsp("codeAction")
+            end, { silent = true, buffer = bufnr })
+
+            vim.keymap.set("n", "<leader>k", function()
+              vim.cmd.RustLsp({ "hover", "actions" })
             end, { silent = true, buffer = bufnr })
 
             vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
