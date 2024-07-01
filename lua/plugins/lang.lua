@@ -183,9 +183,9 @@ return {
               vim.cmd.RustLsp("codeAction")
             end, { silent = true, buffer = bufnr })
 
-            vim.keymap.set("n", "<leader>k", function()
-              vim.cmd.RustLsp({ "hover", "actions" })
-            end, { silent = true, buffer = bufnr })
+            -- vim.keymap.set("n", "<leader>k", function()
+            --   vim.cmd.RustLsp({ "hover", "actions" })
+            -- end, { silent = true, buffer = bufnr })
 
             vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
           end,
