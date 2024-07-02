@@ -46,8 +46,8 @@ keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", opts)
 keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
 
 -- Visually select lines, and move them up/down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", "<Cmd>m '>+1<CR>gv=gv", opts)
+vim.keymap.set("v", "K", "<Cmd>m '<-2<CR>gv=gv", opts)
 
 -- Delete buffer
 keymap.set("n", "<leader>bd", "<Cmd>bd!<CR>", opts)
