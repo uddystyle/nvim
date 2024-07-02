@@ -15,9 +15,6 @@ vim.cmd("language messages en_US.utf-8")
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
--- LazyVim auto format
-vim.g.autoformat = true
-
 -- Smoothscroll
 vim.o.smoothscroll = true
 
