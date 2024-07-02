@@ -95,18 +95,25 @@ return {
           lualine_b = { "branch" },
 
           lualine_c = {
-          -- stylua: ignore
-          {
-            function() return require("noice").api.status.mode.get() end,
-            cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
-            color = function() return LazyVim.ui.fg("Constant") end,
-          },
-          -- stylua: ignore
-          {
-            require("lazy.status").updates,
-            cond = require("lazy.status").has_updates,
-            color = function() return LazyVim.ui.fg("Special") end,
-          },
+            -- stylua: ignore
+            { LazyVim.lualine.pretty_path() },
+            {
+              function()
+                return require("noice").api.status.mode.get()
+              end,
+              cond = function()
+                return package.loaded["noice"] and require("noice").api.status.mode.has()
+              end,
+              color = function()
+                return LazyVim.ui.fg("Constant")
+              end,
+            },
+            -- stylua: ignore
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+              color = function() return LazyVim.ui.fg("Special") end,
+            },
             {
               "diff",
               symbols = {
@@ -138,11 +145,11 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
-            { LazyVim.lualine.pretty_path() },
+            -- { LazyVim.lualine.pretty_path() },
             -- { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
           },
           lualine_y = {
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
+            { "progress", separator = " ", padding = { left = 1, right = 1 } },
           },
         },
         extensions = { "neo-tree", "lazy" },
@@ -150,5 +157,34 @@ return {
 
       return opts
     end,
+  },
+
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    opts = {
+      options = {
+      -- stylua: ignore
+      close_command = function(n) LazyVim.ui.bufremove(n) end,
+      -- stylua: ignore
+      right_mouse_command = function(n) LazyVim.ui.bufremove(n) end,
+        diagnostics = false,
+        always_show_bufferline = false,
+        diagnostics_indicator = function(_, _, diag)
+          return ""
+        end,
+        offsets = {
+          {
+            filetype = "neo-tree",
+            text = "Neo-tree",
+            highlight = "Directory",
+            text_align = "left",
+          },
+        },
+        get_element_icon = function(opts)
+          return LazyVim.config.icons.ft[opts.filetype]
+        end,
+      },
+    },
   },
 }
