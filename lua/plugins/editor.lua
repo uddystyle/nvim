@@ -138,7 +138,7 @@ return {
         open_on_setup = false,
         close_if_last_window = true,
         enable_git_status = true,
-        enable_diagnositcs = true,
+        enable_diagnositcs = false,
         event_handlers = {
           {
             event = "file_opened",

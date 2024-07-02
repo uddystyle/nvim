@@ -129,15 +129,6 @@ return {
           -- stylua: ignore
           lualine_x = {
             LazyVim.lualine.root_dir(),
-            {
-              "diagnostics",
-              symbols = {
-                error = icons.diagnostics.Error,
-                warn = icons.diagnostics.Warn,
-                info = icons.diagnostics.Info,
-                hint = icons.diagnostics.Hint,
-              },
-            },
             { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 0 } },
           },
           lualine_y = {
