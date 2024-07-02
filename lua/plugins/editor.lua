@@ -337,41 +337,41 @@ return {
         },
       },
     },
-    -- config = function(_, opts)
-    --   if type(opts.ensure_installed) == "table" then
-    --     opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
-    --   end
-    --
-    --   vim.keymap.set(
-    --     "n",
-    --     "<leader>dp",
-    --     vim.diagnostic.goto_prev,
-    --     { desc = "Go to previous diagnostic message", noremap = true, silent = true }
-    --   )
-    --
-    --   vim.keymap.set(
-    --     "n",
-    --     "<leader>dn",
-    --     vim.diagnostic.goto_next,
-    --     { desc = "Go to next diagnostic message", noremap = true, silent = true }
-    --   )
-    --
-    --   vim.keymap.set(
-    --     "n",
-    --     "<leader>do",
-    --     vim.diagnostic.open_float,
-    --     { desc = "Open floating diagnostic message", noremap = true, silent = true }
-    --   )
-    --
-    --   vim.keymap.set(
-    --     "n",
-    --     "<leader>ds",
-    --     vim.diagnostic.setloclist,
-    --     { desc = "Open diagnostics list", noremap = true, silent = true }
-    --   )
-    --
-    --   require("nvim-treesitter.configs").setup(opts)
-    -- end,
+    config = function(_, opts)
+      if type(opts.ensure_installed) == "table" then
+        opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
+      end
+
+      vim.keymap.set(
+        "n",
+        "<leader>dp",
+        vim.diagnostic.goto_prev,
+        { desc = "Go to previous diagnostic message", noremap = true, silent = true }
+      )
+
+      vim.keymap.set(
+        "n",
+        "<leader>dn",
+        vim.diagnostic.goto_next,
+        { desc = "Go to next diagnostic message", noremap = true, silent = true }
+      )
+
+      vim.keymap.set(
+        "n",
+        "<leader>do",
+        vim.diagnostic.open_float,
+        { desc = "Open floating diagnostic message", noremap = true, silent = true }
+      )
+
+      vim.keymap.set(
+        "n",
+        "<leader>ds",
+        vim.diagnostic.setloclist,
+        { desc = "Open diagnostics list", noremap = true, silent = true }
+      )
+
+      require("nvim-treesitter.configs").setup(opts)
+    end,
   },
 
   {
