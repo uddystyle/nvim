@@ -100,20 +100,6 @@ return {
           ["P"] = { "toggle_preview", config = { use_float = false } },
         },
       },
-      default_component_configs = {
-        indent = {
-          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
-          expander_collapsed = "",
-          expander_expanded = "",
-          expander_highlight = "NeoTreeExpander",
-        },
-        git_status = {
-          symbols = {
-            unstaged = "󰄱",
-            staged = "󰱒",
-          },
-        },
-      },
     },
     config = function(_, opts)
       local function on_move(data)
@@ -135,10 +121,6 @@ return {
             end
           end,
         }),
-        open_on_setup = false,
-        close_if_last_window = true,
-        enable_git_status = true,
-        enable_diagnositcs = false,
         event_handlers = {
           {
             event = "file_opened",

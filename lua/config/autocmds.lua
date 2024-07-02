@@ -58,9 +58,9 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
   virtual_text = false,
 })
 
-vim.cmd([[
-  highlight DiagnosticSignError guibg=NONE guifg=NONE
-  highlight DiagnosticSignWarn guibg=NONE guifg=NONE
-  highlight DiagnosticSignInfo guibg=NONE guifg=NONE
-  highlight DiagnosticSignHint guibg=NONE guifg=NONE
-]])
+-- vim.cmd([[
+--   highlight DiagnosticSignError guibg=NONE guifg=NONE
+--   highlight DiagnosticSignWarn guibg=NONE guifg=NONE
+--   highlight DiagnosticSignInfo guibg=NONE guifg=NONE
+--   highlight DiagnosticSignHint guibg=NONE guifg=NONE
+-- ]])
