@@ -3,7 +3,7 @@ return {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = function()
-        require("catppuccin").load()
+        require("tokyonight").load()
       end,
     },
   },
