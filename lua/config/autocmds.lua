@@ -57,10 +57,3 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
 })
-
--- vim.cmd([[
---   highlight DiagnosticSignError guibg=NONE guifg=NONE
---   highlight DiagnosticSignWarn guibg=NONE guifg=NONE
---   highlight DiagnosticSignInfo guibg=NONE guifg=NONE
---   highlight DiagnosticSignHint guibg=NONE guifg=NONE
--- ]])

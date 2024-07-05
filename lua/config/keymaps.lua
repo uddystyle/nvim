@@ -35,8 +35,8 @@ keymap.set("v", "<C-l>", "$", opts)
 keymap.set("n", "O", [[:lua vim.fn.append(vim.fn.line('.'), '')<CR>j]], opts)
 
 -- Fast saving
-keymap.set("n", "<leader>w", "<Cmd>write<CR>", opts)
-keymap.set("n", "<leader>q", "<Cmd>q!<CR>", opts)
+-- keymap.set("n", "<leader>w", "<Cmd>write<CR>", opts)
+-- keymap.set("n", "<leader>q", "<Cmd>q!<CR>", opts)
 
 -- Move Right
 keymap.set("i", "<C-f>", "<Right>", opts)
@@ -44,6 +44,9 @@ keymap.set("i", "<C-f>", "<Right>", opts)
 -- Buffer line
 keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", opts)
 keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
+
+-- Remap for Exit
+keymap.set("i", "jj", "<Esc>", opts)
 
 -- Visually select lines, and move them up/down
 vim.keymap.set("v", "J", "<Cmd>m '>+1<CR>gv=gv", opts)
