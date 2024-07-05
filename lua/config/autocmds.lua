@@ -57,3 +57,12 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,
 })
+
+-- Manage highlight the buffer enter/leave
+vim.cmd([[
+  augroup CursorHighlight
+    autocmd!
+    autocmd BufEnter * setlocal winhighlight=Normal:Normal
+    autocmd BufLeave * setlocal winhighlight=CursorLine:Normal
+  augroup END
+]])
