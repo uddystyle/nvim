@@ -35,8 +35,8 @@ keymap.set("v", "<C-l>", "$", opts)
 keymap.set("n", "O", [[:lua vim.fn.append(vim.fn.line('.'), '')<CR>j]], opts)
 
 -- Fast saving
-keymap.set("n", "<leader>ww", "<Cmd>write<CR>", opts)
-keymap.set("n", "<leader>qq", "<Cmd>q!<CR>", opts)
+keymap.set("n", "<leader>ww", "<Cmd>write<CR>", { noremap = true, silent = true, desc = "Save the file" })
+keymap.set("n", "<leader>qq", "<Cmd>q!<CR>", { noremap = true, silent = true, desc = "Close the file" })
 
 -- Move Right
 keymap.set("i", "<C-f>", "<Right>", opts)
@@ -53,19 +53,25 @@ vim.keymap.set("v", "J", "<Cmd>m '>+1<CR>gv=gv", opts)
 vim.keymap.set("v", "K", "<Cmd>m '<-2<CR>gv=gv", opts)
 
 -- Delete buffer
-keymap.set("n", "<leader>bd", "<Cmd>bd!<CR>", opts)
+keymap.set("n", "<leader>bd", "<Cmd>bd!<CR>", { noremap = true, silent = true, desc = "Delete the buffer" })
 
 -- Close terminal window, even if we are in insert mode
-keymap.set("t", "<leader>q", "<C-\\><C-n><Cmd>q<CR>", { noremap = true, silent = true })
-keymap.set("t", "<C-[>", "<C-\\><C-n>", { noremap = true, silent = true })
+keymap.set("t", "<leader>q", "<C-\\><C-n><Cmd>q<CR>", opts)
+keymap.set("t", "<C-[>", "<C-\\><C-n>", opts)
 
 -- Open terminal in vertical and horizontal split
-keymap.set("n", "<leader>tv", "<Cmd>vnew term://zsh<CR>", { noremap = true, silent = true })
-keymap.set("n", "<leader>ts", "<Cmd>botright split | terminal zsh<CR>", { noremap = true, silent = true })
-
--- Open terminal in vertical and horizontal split, inside the terminal
-keymap.set("t", "<leader>tv", "<C-w><Cmd>vnew term://zsh<CR>", { noremap = true, silent = true })
-keymap.set("t", "<leader>ts", "<Cmd>botright split | terminal zsh<CR>", { noremap = true, silent = true })
+keymap.set(
+  "n",
+  "<leader>tv",
+  "<Cmd>vnew term://zsh<CR>",
+  { noremap = true, silent = true, desc = "Open a terminal in a vertical window" }
+)
+keymap.set(
+  "n",
+  "<leader>ts",
+  "<Cmd>botright split | terminal zsh<CR>",
+  { noremap = true, silent = true, desc = "Open a terminal in a horizontal window" }
+)
 
 function ToggleTerm()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -77,4 +83,9 @@ function ToggleTerm()
   vim.cmd("botright split term://zsh")
 end
 
-keymap.set("n", "<leader>tt", "<Cmd>lua ToggleTerm()<CR>", opts)
+keymap.set(
+  "n",
+  "<leader>tt",
+  "<Cmd>lua ToggleTerm()<CR>",
+  { noremap = true, silent = true, desc = "Open a terminal in a new buffer" }
+)
