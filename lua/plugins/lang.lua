@@ -160,6 +160,7 @@ return {
   {
     "mrcjkb/rustaceanvim",
     version = "^4",
+    ft = { "rust" },
     lazy = false,
     config = function()
       -- local mason_registry = require("mason-registry")
