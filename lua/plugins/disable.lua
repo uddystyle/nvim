@@ -1,0 +1,31 @@
+return {
+  {
+    "b0o/SchemaStore.nvim",
+    enabled = false,
+  },
+
+  {
+    "folke/flash.nvim",
+    enabled = false,
+  },
+
+  {
+    "nvim-pack/nvim-spectre",
+    enabled = false,
+  },
+
+  {
+    "falke/todo-comments.nvim",
+    enabled = false,
+  },
+
+  {
+    "Bilal2453/luvit-meta",
+    enabled = false,
+  },
+
+  {
+    "echasnovski/mini.ai",
+    enabled = false,
+  },
+}

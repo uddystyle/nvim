@@ -158,14 +158,4 @@ return {
       })
     end,
   },
-
-  {
-    "Bilal2453/luvit-meta",
-    enabled = false,
-  },
-
-  {
-    "echasnovski/mini.ai",
-    enabled = false,
-  },
 }
