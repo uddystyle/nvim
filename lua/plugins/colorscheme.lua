@@ -92,4 +92,35 @@ return {
   --     vim.cmd([[colorscheme gruvbox]])
   --   end,
   -- },
+
+  {
+    "rebelot/kanagawa.nvim",
+    config = function()
+      require("kanagawa").setup({
+        compile = false,
+        undercurl = true,
+        commentStyle = { italic = true },
+        functionStyle = {},
+        keywordStyle = { italic = true },
+        statementStyle = { bold = true },
+        typeStyle = {},
+        transparent = false,
+        dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+        terminalColors = true, -- define vim.g.terminal_color_{0,17}
+        colors = {
+          palette = {},
+          theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+        },
+        overrides = function(colors) -- add/modify highlights
+          return {}
+        end,
+        theme = "dragon",
+        background = {
+          dark = "dragon",
+          light = "lotus",
+        },
+      })
+      vim.cmd([[colorscheme kanagawa-dragon]])
+    end,
+  },
 }
