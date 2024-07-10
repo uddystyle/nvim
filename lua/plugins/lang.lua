@@ -191,11 +191,15 @@ return {
               cargo = {
                 allFeatures = true,
                 loadOutDirsFromCheck = true,
-                buildScripts = {
-                  enable = true,
-                },
               },
-              checkOnSave = true,
+              diagnostics = {
+                enable = true,
+                disabled = { "unresolved-import", "inactive-code" },
+              },
+              checkOnSave = {
+                command = "clippy",
+                extraArgs = { "--all", "--all-features" },
+              },
               proMacro = {
                 enable = true,
                 ignored = {
