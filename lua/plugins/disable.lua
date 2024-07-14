@@ -28,4 +28,9 @@ return {
     "echasnovski/mini.ai",
     enabled = false,
   },
+
+  {
+    "akinsho/bufferline.nvim",
+    enabled = false,
+  },
 }
