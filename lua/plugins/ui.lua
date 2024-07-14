@@ -79,11 +79,8 @@ return {
       -- PERF: we don't need this lualine require madness 🤷
       local lualine_require = require("lualine_require")
       lualine_require.require = require
-
       local icons = LazyVim.config.icons
-
       vim.o.laststatus = vim.g.lualine_laststatus
-
       local opts = {
         options = {
           theme = "auto",
@@ -93,7 +90,6 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch" },
-
           lualine_c = {
             -- stylua: ignore
             { LazyVim.lualine.pretty_path() },
