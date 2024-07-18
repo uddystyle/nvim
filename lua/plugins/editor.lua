@@ -383,4 +383,23 @@ return {
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
+
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = function(_, opts)
+      opts.defaults = opts.defaults or {}
+      opts.spec = {
+        { "<leader>w", group = "write" },
+        { "<leader>ww", "<Cmd>w<CR>", desc = "Save file" },
+      }
+      return opts
+    end,
+    config = function(_, opts)
+      local wk = require("which-key")
+      wk.setup(opts)
+      wk.add(opts.spec)
+    end,
+    keys = {},
+  },
 }

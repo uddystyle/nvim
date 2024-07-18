@@ -35,8 +35,7 @@ keymap.set("v", "<C-l>", "$", opts)
 keymap.set("n", "O", [[:lua vim.fn.append(vim.fn.line('.'), '')<CR>j]], opts)
 
 -- Fast saving
-keymap.set("n", "<leader>ww", "<Cmd>write<CR>", { noremap = true, silent = true, desc = "Save the file" })
-keymap.set("n", "<leader>qq", "<Cmd>q!<CR>", { noremap = true, silent = true, desc = "Close the file" })
+-- keymap.set("n", "<leader>w", "<Cmd>write<CR>", { noremap = true, silent = true, desc = "Save the file" })
 
 -- Move Right
 keymap.set("i", "<C-f>", "<Right>", opts)
