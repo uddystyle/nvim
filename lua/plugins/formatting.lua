@@ -20,8 +20,7 @@ return {
         priority = 100,
         primary = true,
         format = function(buf)
-          local opts = LazyVim.opts("conform.nvim")
-          require("conform").format(LazyVim.merge({}, opts.format, { bufnr = buf }))
+          require("conform").format({ bufnr = buf })
         end,
         sources = function(buf)
           local ret = require("conform").list_formatters(buf)
@@ -34,7 +33,7 @@ return {
   end,
   opts = function()
     local opts = {
-      format = {
+      default_format_opts = {
         timeout_ms = 3000,
         async = false, -- not recommended to change
         quiet = false, -- not recommended to change
