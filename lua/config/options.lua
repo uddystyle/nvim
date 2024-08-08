@@ -18,6 +18,10 @@ vim.g.loaded_ruby_provider = 0
 -- Smoothscroll
 vim.o.smoothscroll = true
 
+-- List
+vim.o.list = true
+vim.o.listchars = "tab:» ,trail:･"
+
 -- Terminals configuration for colorscheme
 vim.o.termguicolors = true
 vim.o.background = "dark"
