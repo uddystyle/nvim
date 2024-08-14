@@ -14,6 +14,7 @@ vim.cmd("language messages en_US.utf-8")
 -- disable providers
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
+vim.g.python3_host_prog = "/opt/homebrew/bin/python3.11"
 
 -- Smoothscroll
 vim.o.smoothscroll = true

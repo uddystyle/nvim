@@ -149,14 +149,11 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       local lspconfig = require("lspconfig")
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
+
       lspconfig.sourcekit.setup({
-        capabilities = {
-          workspace = {
-            didChangeWatchedFiles = {
-              dynamicRegistration = true,
-            },
-          },
-        },
+        capabilities = capabilities,
         cmd = {
           "sourcekit-lsp",
           "-Xswiftc",
@@ -169,7 +166,7 @@ return {
           "x86_64-apple-ios17.5-simulator",
         },
         filetypes = { "swift", "objective-c", "objective-cpp" },
-        root_dir = require("lspconfig").util.root_pattern(
+        root_dir = lspconfig.util.root_pattern(
           "buildServer.json",
           "*.xcodeproj",
           "*.xcworkspace",
@@ -177,6 +174,12 @@ return {
           "Package.swift",
           ".git"
         ),
+        on_init = function(client)
+          print("SourceKit-LSP initialized")
+        end,
+        on_attach = function(client, bufnr)
+          print("SourceKit-LSP attached")
+        end,
       })
     end,
   },
