@@ -49,6 +49,7 @@ return {
         css = { "prettier" },
         go = { "goimports", "gofmt" },
         rust = { "rustfmt" },
+        swift = { "swift_format" },
       },
       formatters = {
         injected = { options = { ignore_errors = true } },
