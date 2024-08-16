@@ -15,6 +15,9 @@ keymap.set("n", "dw", "vb_d")
 -- Select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
 
+-- Jumplist
+keymap.set("n", "<C-m>", "<C-i>", opts)
+
 -- Resize window
 keymap.set("n", "<C-w><left>", "<C-w><")
 keymap.set("n", "<C-w><right>", "<C-w>>")
