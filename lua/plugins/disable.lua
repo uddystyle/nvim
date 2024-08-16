@@ -38,4 +38,9 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     enabled = false,
   },
+
+  {
+    "smjonas/inc-rename.nvim",
+    enabled = false,
+  },
 }
