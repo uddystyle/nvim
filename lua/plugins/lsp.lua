@@ -116,43 +116,4 @@ return {
       },
     },
   },
-
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require("lspconfig")
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
-
-      lspconfig.sourcekit.setup({
-        capabilities = capabilities,
-        cmd = {
-          "sourcekit-lsp",
-          "-Xswiftc",
-          "-sdk",
-          "-Xswiftc",
-          "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator17.5.sdk",
-          "-Xswiftc",
-          "-target",
-          "-Xswiftc",
-          "x86_64-apple-ios17.5-simulator",
-        },
-        filetypes = { "swift", "objective-c", "objective-cpp" },
-        root_dir = lspconfig.util.root_pattern(
-          "buildServer.json",
-          "*.xcodeproj",
-          "*.xcworkspace",
-          "compile_commands.json",
-          "Package.swift",
-          ".git"
-        ),
-        on_init = function(client)
-          print("SourceKit-LSP initialized")
-        end,
-        on_attach = function(client, bufnr)
-          print("SourceKit-LSP attached")
-        end,
-      })
-    end,
-  },
 }
