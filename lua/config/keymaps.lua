@@ -22,6 +22,10 @@ keymap.set("n", "<C-m>", "<C-i>", opts)
 keymap.set("n", "<C-w><left>", "<C-w><")
 keymap.set("n", "<C-w><right>", "<C-w>>")
 
+-- Split window
+keymap.set("n", "ss", "<Cmd>split<cr>", opts)
+keymap.set("n", "sv", "<Cmd>vsplit<cr>", opts)
+
 -- diagnostics
 keymap.set("n", "C-j", function()
   vim.diagnostic.goto_next()
