@@ -19,6 +19,8 @@ vim.g.python3_host_prog = "/opt/homebrew/bin/python3.11"
 -- Smoothscroll
 vim.o.smoothscroll = true
 
+vim.o.ambiwidth = "double"
+
 -- List
 vim.o.list = true
 vim.o.listchars = "tab:» ,trail:･"
