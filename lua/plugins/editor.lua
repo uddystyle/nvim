@@ -66,7 +66,8 @@ return {
       filesystem = {
         filtered_items = {
           visible = true,
-          hide_gitignored = true,
+          hide_dotfiles = false,
+          hide_gitignored = false,
         },
         bind_to_cwd = false,
         follow_current_file = { enabled = true, leave_dirs_open = false },
@@ -261,6 +262,7 @@ return {
         defaults = {
           prompt_prefix = " ",
           selection_caret = " ",
+          hidden = true,
           get_selection_window = function()
             local wins = vim.api.nvim_list_wins()
             table.insert(wins, 1, vim.api.nvim_get_current_win())
