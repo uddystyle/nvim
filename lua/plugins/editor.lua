@@ -323,6 +323,7 @@ return {
         "html",
         "javascript",
         "json",
+        "bash",
         "lua",
         "python",
         "scss",
