@@ -26,6 +26,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- For Go lang
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  command = "setlocal tabstop=4 shiftwidth=4 noexpandtab",
+})
+
 -- automatically switch to insert mode when entering a Term buffer
 vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
   group = vim.api.nvim_create_augroup("openTermInsert", {}),

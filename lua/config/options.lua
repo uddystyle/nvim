@@ -21,7 +21,7 @@ vim.o.smoothscroll = true
 
 -- List
 vim.o.list = true
-vim.o.listchars = "tab:» ,trail:･"
+vim.o.listchars = "tab:  ,trail:･"
 
 -- Terminals configuration for colorscheme
 vim.o.termguicolors = true
