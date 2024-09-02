@@ -152,33 +152,4 @@ return {
       return opts
     end,
   },
-
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   event = "VeryLazy",
-  --   opts = {
-  --     options = {
-  --     -- stylua: ignore
-  --     close_command = function(n) LazyVim.ui.bufremove(n) end,
-  --     -- stylua: ignore
-  --     right_mouse_command = function(n) LazyVim.ui.bufremove(n) end,
-  --       diagnostics = false,
-  --       always_show_bufferline = false,
-  --       diagnostics_indicator = function(_, _, diag)
-  --         return ""
-  --       end,
-  --       offsets = {
-  --         {
-  --           filetype = "neo-tree",
-  --           text = "Neo-tree",
-  --           highlight = "Directory",
-  --           text_align = "left",
-  --         },
-  --       },
-  --       get_element_icon = function(opts)
-  --         return LazyVim.config.icons.ft[opts.filetype]
-  --       end,
-  --     },
-  --   },
-  -- },
 }

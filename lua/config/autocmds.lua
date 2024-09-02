@@ -1,7 +1,3 @@
--- Autocmds are automatically loaded on the VeryLazy event
--- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
--- Add any additional autocmds here
-
 -- Don't auto commenting new lines
 local autocmd = vim.api.nvim_create_autocmd
 autocmd("BufEnter", { pattern = "*", command = "set fo-=c fo-=r fo-=o" })
@@ -32,7 +28,7 @@ vim.api.nvim_create_autocmd("FileType", {
   command = "setlocal tabstop=4 shiftwidth=4 noexpandtab",
 })
 
--- automatically switch to insert mode when entering a Term buffer
+-- Automatically switch to insert mode when entering a Term buffer
 vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
   group = vim.api.nvim_create_augroup("openTermInsert", {}),
   callback = function(args)
