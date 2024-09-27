@@ -50,16 +50,19 @@ return {
       vim.keymap.set("n", "<F5>", dap.step_back)
       vim.keymap.set("n", "<F12>", dap.restart)
 
-      -- dap.listeners.before.attach["dapui_config"] = function()
-      --   dapui.open({})
-      -- end
-      dap.listeners.after.event_initialized["dapui_config"] = function()
+      dap.listeners.before.attach.dapui_config = function()
         dapui.open({})
       end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
+      dap.listeners.before.launch.dapui_config = function()
+        dapui.open({})
+      end
+      dap.listeners.after.event_initialized.dapui_config = function()
+        dapui.open({})
+      end
+      dap.listeners.before.event_terminated.dapui_config = function()
         dapui.close({})
       end
-      dap.listeners.before.event_exited["dapui_config"] = function()
+      dap.listeners.before.event_exited.dapui_config = function()
         dapui.close({})
       end
     end,
@@ -124,6 +127,28 @@ return {
           adapter = config.get_codelldb_adapter(codelldb_path, liblldb_path),
         },
       }
+    end,
+  },
+
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+      vim.g.rustfmt_autosave = 1
+    end,
+  },
+
+  {
+    "saecki/crates.nvim",
+    ft = { "toml" },
+    config = function()
+      require("crates").setup({
+        completion = {
+          cmp = {
+            enabled = true,
+          },
+        },
+      })
     end,
   },
 }

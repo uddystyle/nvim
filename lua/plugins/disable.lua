@@ -25,7 +25,7 @@ return {
   },
 
   {
-    "echasnovski/mini.ai",
+    "echasnovski/mini.icons",
     enabled = false,
   },
 
