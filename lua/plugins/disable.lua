@@ -34,10 +34,10 @@ return {
     enabled = false,
   },
 
-  {
-    "falke/noice.nvim",
-    enabled = false,
-  },
+  -- {
+  --   "falke/noice.nvim",
+  --   enabled = false,
+  -- },
 
   {
     "smjonas/inc-rename.nvim",

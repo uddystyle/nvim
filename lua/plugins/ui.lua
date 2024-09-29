@@ -38,6 +38,15 @@ return {
         long_message_to_split = true,
         inc_rename = true,
       },
+      cmdline = {
+        enabled = false,
+      },
+      messages = {
+        enabled = false,
+      },
+      popupmenu = {
+        enabled = false,
+      },
     },
   -- stylua: ignore
   keys = {
