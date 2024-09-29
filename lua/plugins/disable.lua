@@ -35,6 +35,11 @@ return {
   },
 
   {
+    "falke/noice.nvim",
+    enabled = false,
+  },
+
+  {
     "smjonas/inc-rename.nvim",
     enabled = false,
   },
