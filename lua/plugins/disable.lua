@@ -40,6 +40,11 @@ return {
   },
 
   {
+    "rcarriga/nvim-notify",
+    enabled = false,
+  },
+
+  {
     "smjonas/inc-rename.nvim",
     enabled = false,
   },
