@@ -95,6 +95,7 @@ return {
           theme = "auto",
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
+          section_separators = { left = "", right = "" },
         },
         sections = {
           lualine_a = { "mode" },
