@@ -15,10 +15,12 @@ vim.g.python3_host_prog = "/opt/homebrew/bin/python3.11"
 -- Smoothscroll
 vim.o.smoothscroll = true
 
+-- Basics
 vim.o.ttyfast = true
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
+vim.o.showmode = true
 
 -- List
 vim.o.list = true
