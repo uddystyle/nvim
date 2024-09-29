@@ -151,6 +151,7 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
+            { "filetype", icon_only = false, separator = "", padding = { left = 0, right = 1 } },
           },
           lualine_y = {
             { "progress", separator = " ", padding = { left = 1, right = 1 } },
