@@ -102,7 +102,7 @@ return {
           lualine_b = { "branch" },
           lualine_c = {
             -- stylua: ignore
-            { LazyVim.lualine.pretty_path() },
+            { LazyVim.lualine.pretty_path(), separator = "|" },
             -- {
             --   function()
             --     return require("noice").api.status.mode.get()
@@ -137,6 +137,7 @@ return {
                   }
                 end
               end,
+              separator = "|",
             },
             {
               "diagnostics",
@@ -146,13 +147,16 @@ return {
                 info = icons.diagnostics.Info,
                 hint = icons.diagnostics.Hint,
               },
+              separator = "|",
             },
           },
           -- stylua: ignore
           lualine_x = {
             LazyVim.lualine.root_dir(),
-            { "encoding", separator = "", padding = { left = 1, right = 1 } },
-            { "fileformat", separator = "", padding = { left = 1, right = 1 } },
+            -- { "encoding", separator = "", padding = { left = 1, right = 1 } },
+            { "encoding", separator = "|", padding = { left = 1, right = 1 } },
+            -- { "fileformat", separator = "", padding = { left = 1, right = 1 } },
+            { "fileformat", separator = "|", padding = { left = 1, right = 1 } },
             { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 1 } },
           },
           lualine_y = {
