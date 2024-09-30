@@ -10,14 +10,16 @@ return {
       {
         "<leader>n",
         function()
-          require("neo-tree.command").execute({ toggle = true, position = "float", dir = LazyVim.root() })
+          -- require("neo-tree.command").execute({ toggle = true, position = "float", dir = LazyVim.root() })
+          require("neo-tree.command").execute({ toggle = true, position = "right", dir = LazyVim.root() })
         end,
         desc = "Explorer NeoTree (Root Dir)",
       },
       {
         "<leader>N",
         function()
-          require("neo-tree.command").execute({ toggle = true, position = "float", dir = vim.uv.cwd() })
+          -- require("neo-tree.command").execute({ toggle = true, position = "float", dir = vim.uv.cwd() })
+          require("neo-tree.command").execute({ toggle = true, position = "right", dir = vim.uv.cwd() })
         end,
         desc = "Explorer NeoTree (cwd)",
       },
@@ -129,14 +131,15 @@ return {
           },
         },
         window = {
-          position = "float",
-          popup = {
-            size = {
-              height = "80%",
-              width = "80%",
-            },
-            border = "rounded",
-          },
+          position = "right",
+          -- position = "float",
+          -- popup = {
+          --   size = {
+          --     height = "80%",
+          --     width = "80%",
+          --   },
+          --   border = "rounded",
+          -- },
         },
       })
     end,
