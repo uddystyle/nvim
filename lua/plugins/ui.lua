@@ -151,6 +151,8 @@ return {
           -- stylua: ignore
           lualine_x = {
             LazyVim.lualine.root_dir(),
+            { "encoding", separator = "", padding = { left = 1, right = 1 } },
+            { "fileformat", separator = "", padding = { left = 1, right = 1 } },
             { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 1 } },
           },
           lualine_y = {
