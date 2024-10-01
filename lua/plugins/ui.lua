@@ -166,7 +166,6 @@ return {
             --       }
             --     end
             --   end,
-            -- separator = "|",
             -- },
             -- {
             --   "diagnostics",
@@ -176,7 +175,6 @@ return {
             --     info = icons.diagnostics.Info,
             --     hint = icons.diagnostics.Hint,
             --   },
-            -- separator = "|",
             -- },
           },
           -- stylua: ignore
