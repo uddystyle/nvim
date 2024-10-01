@@ -99,11 +99,39 @@ return {
         },
         sections = {
           lualine_a = { "mode" },
-          lualine_b = { "branch" },
+          lualine_b = {
+            { "branch" },
+            {
+              "diff",
+              symbols = {
+                added = icons.git.added,
+                modified = icons.git.modified,
+                removed = icons.git.removed,
+              },
+              source = function()
+                local gitsigns = vim.b.gitsigns_status_dict
+                if gitsigns then
+                  return {
+                    added = gitsigns.added,
+                    modified = gitsigns.changed,
+                    removed = gitsigns.removed,
+                  }
+                end
+              end,
+            },
+          },
           lualine_c = {
             -- stylua: ignore
-            -- { LazyVim.lualine.pretty_path(), separator = "|" },
             { LazyVim.lualine.pretty_path() },
+            {
+              "diagnostics",
+              symbols = {
+                error = icons.diagnostics.Error,
+                warn = icons.diagnostics.Warn,
+                info = icons.diagnostics.Info,
+                hint = icons.diagnostics.Hint,
+              },
+            },
             -- {
             --   function()
             --     return require("noice").api.status.mode.get()
@@ -154,40 +182,7 @@ return {
           -- stylua: ignore
           lualine_x = {
             LazyVim.lualine.root_dir(),
-            -- { "encoding", separator = "", padding = { left = 1, right = 1 } },
-            { "encoding", separator = "|", padding = { left = 1, right = 1 } },
-            -- { "fileformat", separator = "", padding = { left = 1, right = 1 } },
-            { "fileformat", separator = "|", padding = { left = 1, right = 1 } },
-            -- { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 1 } },
-            { "filetype", icon_only = false, separator = "|", padding = { left = 1, right = 1 } },
-            {
-              "diff",
-              symbols = {
-                added = icons.git.added,
-                modified = icons.git.modified,
-                removed = icons.git.removed,
-              },
-              source = function()
-                local gitsigns = vim.b.gitsigns_status_dict
-                if gitsigns then
-                  return {
-                    added = gitsigns.added,
-                    modified = gitsigns.changed,
-                    removed = gitsigns.removed,
-                  }
-                end
-              end,
-            separator = "",
-            },
-            {
-              "diagnostics",
-              symbols = {
-                error = icons.diagnostics.Error,
-                warn = icons.diagnostics.Warn,
-                info = icons.diagnostics.Info,
-                hint = icons.diagnostics.Hint,
-              },
-            },
+            { "filetype", icon_only = false, padding = { left = 1, right = 1 } },
           },
           lualine_y = {
             { "progress", separator = " ", padding = { left = 1, right = 1 } },
