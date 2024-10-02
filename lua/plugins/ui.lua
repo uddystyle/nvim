@@ -119,10 +119,6 @@ return {
                 end
               end,
             },
-          },
-          lualine_c = {
-            -- stylua: ignore
-            { LazyVim.lualine.pretty_path() },
             {
               "diagnostics",
               symbols = {
@@ -132,6 +128,10 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
+          },
+          lualine_c = {
+            -- stylua: ignore
+            { LazyVim.lualine.pretty_path() },
             -- {
             --   function()
             --     return require("noice").api.status.mode.get()

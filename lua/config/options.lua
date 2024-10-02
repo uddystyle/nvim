@@ -21,7 +21,7 @@ vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.showmode = true
-vim.o.cmdheight = 1
+vim.o.cmdheight = 2
 
 vim.opt.shortmess:remove("W")
 
