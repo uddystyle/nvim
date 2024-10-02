@@ -141,6 +141,12 @@ return {
             border = "rounded",
           },
         },
+        filesystem = {
+          filtered_items = {
+            visible = true,
+            show_hidden = true,
+          },
+        },
       })
     end,
   },
