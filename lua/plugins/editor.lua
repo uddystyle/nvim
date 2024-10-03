@@ -342,6 +342,7 @@ return {
         "typescript",
         "vim",
         "vimdoc",
+        "zig",
       },
       incremental_selection = {
         enable = true,
