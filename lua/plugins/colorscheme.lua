@@ -14,6 +14,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    lazy = false,
     priority = 1000,
     opts = {
       flavour = "mocha",
@@ -37,6 +38,26 @@ return {
         purple = "#c678dd",
         black = "#282c34",
         white = "#dcdfe4",
+      },
+    },
+  },
+
+  {
+    "rebelot/kanagawa.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      commentStyle = { italic = true },
+      keywordStyle = { italic = false },
+      statementStyle = { bold = true },
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+            },
+          },
+        },
       },
     },
   },
