@@ -7,6 +7,8 @@ vim.cmd([[
 
 vim.cmd("language messages en_US.utf-8")
 
+vim.o.guicursor = ""
+
 -- disable providers
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
