@@ -48,4 +48,9 @@ return {
     "smjonas/inc-rename.nvim",
     enabled = false,
   },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    enabled = false,
+  },
 }

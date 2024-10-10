@@ -8,6 +8,10 @@ vim.cmd([[
 vim.cmd("language messages en_US.utf-8")
 
 vim.o.guicursor = ""
+vim.o.cursorline = false
+vim.o.number = false
+vim.o.relativenumber = false
+vim.o.laststatus = 0
 
 -- disable providers
 vim.g.loaded_perl_provider = 0

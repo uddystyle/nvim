@@ -79,14 +79,20 @@ keymap.set(
   { noremap = true, silent = true, desc = "Open a terminal in a horizontal window" }
 )
 
+local term_buf = nil
+
 function ToggleTerm()
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_get_name(buf):match("term://") then
-      vim.api.nvim_buf_delete(buf, { force = true })
-      return
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    local term_win = vim.fn.bufwinnr(term_buf)
+    if term_win ~= -1 then
+      vim.api.nvim_win_close(vim.fn.win_getid(term_win), true)
+    else
+      vim.cmd("buffer " .. term_buf)
     end
+  else
+    vim.cmd("terminal zsh")
+    term_buf = vim.api.nvim_get_current_buf()
   end
-  vim.cmd("botright split term://zsh")
 end
 
 keymap.set(
