@@ -51,7 +51,9 @@ return {
       keywordStyle = { italic = false },
       statementStyle = { bold = true },
       colors = {
-        palette = {},
+        palette = {
+          oldWhite = "#c5c9c5",
+        },
         theme = {
           all = {
             ui = {
