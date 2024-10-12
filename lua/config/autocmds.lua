@@ -62,3 +62,15 @@ vim.cmd([[
     autocmd BufLeave * setlocal winhighlight=CursorLine:Normal
   augroup END
 ]])
+
+-- For Go lang
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  command = "setlocal tabstop=4 shiftwidth=4 noexpandtab",
+})
+
+-- For C lang
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "c",
+  command = "setlocal tabstop=4 shiftwidth=4 noexpandtab",
+})

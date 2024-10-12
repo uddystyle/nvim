@@ -6,6 +6,7 @@ vim.cmd([[
 ]])
 
 vim.cmd("language messages en_US.utf-8")
+vim.cmd("filetype plugin on")
 
 vim.o.guicursor = ""
 vim.o.cursorline = false
