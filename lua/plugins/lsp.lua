@@ -8,13 +8,14 @@ return {
       init = function()
         require("lazyvim.util").lsp.on_attach(function(_, buffer)
           -- stylua: ignore
-          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
-          vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
+          vim.keymap.set( "n", "<leader>co", ":TypescriptOrganizeImports<CR>", { buffer = buffer, desc = "Organize Imports" })
+          vim.keymap.set("n", "<leader>cR", ":TypescriptRenameFile<CR>", { desc = "Rename File", buffer = buffer })
         end)
       end,
     },
     opts = {
       servers = {
+        -- typescript
         tsserver = {
           enabled = false,
         },
@@ -54,10 +55,18 @@ return {
             },
           },
         },
+        -- C lang
+        clangd = {
+          filetypes = { "c", "cpp", "objc", "objcpp" },
+          settings = {
+            fallbackFlags = { "--fallback-style=llvm" },
+          },
+          cmd = { "clangd", "--fallback-style={IndentWidth: 4, TabWidth: 4}" },
+        },
       },
       setup = {
-        tsserver = function()
-          return true
+        tsserver = function(_, opts)
+          return opts
         end,
         vtsls = function(_, opts)
           LazyVim.lsp.on_attach(function(client, buffer)

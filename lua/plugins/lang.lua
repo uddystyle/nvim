@@ -170,17 +170,6 @@ return {
         lsp_inlay_hints = {
           enable = false,
         },
-        lsp_cfg = {
-          settings = {
-            gopls = {
-              ui = {
-                inlayHints = {
-                  enable = false,
-                },
-              },
-            },
-          },
-        },
       })
     end,
     event = { "CmdlineEnter" },

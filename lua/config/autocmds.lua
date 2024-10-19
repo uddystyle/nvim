@@ -64,13 +64,13 @@ vim.cmd([[
 ]])
 
 -- For Go lang
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "go",
---   command = "setlocal tabstop=4 shiftwidth=4 noexpandtab",
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "go",
+  command = "setlocal tabstop=4 shiftwidth=4 noexpandtab",
+})
 
 -- For C lang
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "c",
---   command = "setlocal tabstop=4 shiftwidth=4 noexpandtab",
--- })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "c",
+  command = "setlocal tabstop=4 shiftwidth=4 noexpandtab",
+})
