@@ -61,7 +61,7 @@ return {
           settings = {
             fallbackFlags = { "--fallback-style=llvm" },
           },
-          cmd = { "clangd", "--fallback-style={IndentWidth: 4, TabWidth: 4}" },
+          cmd = { "clangd", "--fallback-style={IndektWidth: 4, TabWidth: 4}" },
         },
       },
       setup = {

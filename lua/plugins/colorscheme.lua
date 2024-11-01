@@ -89,4 +89,17 @@ return {
       end,
     },
   },
+
+  {
+    "aktersnurra/no-clown-fiesta.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      styles = {
+        types = { bold = true },
+        lsp = { underline = false },
+        match_paren = { underline = true },
+      },
+    },
+  },
 }

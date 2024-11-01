@@ -54,6 +54,9 @@ keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", opts)
 -- Remap for Exit
 keymap.set("i", "jj", "<Esc>", opts)
 
+-- Reload init files
+keymap.set("n", "<leader>r", ":source $MYVIMRC<CR>", opts)
+
 -- Visually select lines, and move them up/down
 vim.keymap.set("v", "J", "<Cmd>m '>+1<CR>gv=gv", opts)
 vim.keymap.set("v", "K", "<Cmd>m '<-2<CR>gv=gv", opts)
