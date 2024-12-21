@@ -1,6 +1,6 @@
 return {
 
-  -- add tsserver and setup with typescript.nvim instead of lspconfig
+  -- For typescript
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -121,6 +121,81 @@ return {
           end, "vtsls")
           opts.settings.javascript =
             vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
+        end,
+      },
+    },
+  },
+
+  -- For Rust
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "simrat39/rust-tools.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      init = function()
+        require("lazyvim.util").lsp.on_attach(function(client, buffer)
+          vim.keymap.set("n", "<leader>fo", function()
+            vim.lsp.buf.format({ async = true })
+          end, { buffer = buffer, desc = "Format (rustfmt)" })
+
+          vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, { desc = "Rename Symbol", buffer = buffer })
+        end)
+      end,
+    },
+    opts = {
+      servers = {
+        rust_analyzer = {
+          filetypes = { "rust" },
+          settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                allFeatures = true,
+                loadOutDirsFromCheck = true,
+              },
+              diagnostics = {
+                enable = true,
+                disabled = { "unresolved-import", "inactive-code" },
+              },
+              checkOnSave = {
+                command = "clippy",
+                extraArgs = { "--all", "--all-features" },
+              },
+              procMacro = {
+                enable = true,
+                ignored = {
+                  ["async-trait"] = { "async_trait" },
+                  ["napi-derive"] = { "napi" },
+                  ["async-recursion"] = { "async_recursion" },
+                },
+              },
+              inlayHints = {
+                typeHints = { enable = true },
+                chainingHints = { enable = true },
+                parameterHints = { enable = true },
+                closingBraceHints = { enable = false },
+              },
+            },
+          },
+        },
+      },
+
+      setup = {
+        rust_analyzer = function(_, opts)
+          require("rust-tools").setup({
+            tools = {
+              hover_actions = {
+                auto_focus = true,
+              },
+              inlay_hints = {
+                auto = true,
+                show_parameter_hints = true,
+                parameter_hints_prefix = "<- ",
+                other_hints_prefix = "=> ",
+              },
+            },
+            server = opts,
+          })
+          return true
         end,
       },
     },

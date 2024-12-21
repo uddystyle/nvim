@@ -10,8 +10,8 @@ vim.cmd("filetype plugin on")
 
 vim.o.guicursor = ""
 vim.o.cursorline = false
-vim.o.number = false
-vim.o.relativenumber = false
+-- vim.o.number = false
+-- vim.o.relativenumber = false
 vim.o.laststatus = 0
 
 -- disable providers

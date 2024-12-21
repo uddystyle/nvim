@@ -69,74 +69,6 @@ return {
   },
 
   {
-    "mrcjkb/rustaceanvim",
-    version = "^4",
-    ft = { "rust" },
-    lazy = false,
-    config = function()
-      local mason_registry = require("mason-registry")
-      local codelldb = mason_registry.get_package("codelldb")
-      local extension_path = codelldb:get_install_path() .. "/extension/"
-      local codelldb_path = extension_path .. "adapter/codelldb"
-      local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
-      local config = require("rustaceanvim.config")
-
-      vim.g.rustaceanvim = {
-        tools = {
-          hover_actions = {
-            auto_focus = true,
-          },
-        },
-        server = {
-          capabilities = require("cmp_nvim_lsp").default_capabilities(),
-          on_attach = function(_, bufnr)
-            local opts = { noremap = true, silent = true }
-            vim.keymap.set("n", "<leader>ca", function()
-              vim.cmd.RustLsp("codeAction")
-            end, { silent = true, buffer = bufnr })
-
-            vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-          end,
-          default_settings = {
-            ["rust-analyzer"] = {
-              cargo = {
-                allFeatures = true,
-                loadOutDirsFromCheck = true,
-              },
-              diagnostics = {
-                enable = true,
-                disabled = { "unresolved-import", "inactive-code" },
-              },
-              checkOnSave = {
-                command = "clippy",
-                extraArgs = { "--all", "--all-features" },
-              },
-              proMacro = {
-                enable = true,
-                ignored = {
-                  ["async-trait"] = { "async_trait" },
-                  ["napi-derive"] = { "napi" },
-                  ["async-recursion"] = { "async_recursion" },
-                },
-              },
-              inlayHints = {
-                typeHints = { enable = false },
-                chainingHints = { enable = false },
-                parameterHints = { enable = false },
-                closingBraceHints = { enable = false },
-              },
-            },
-          },
-        },
-        dap = {
-          autoload_configurations = true,
-          adapter = config.get_codelldb_adapter(codelldb_path, liblldb_path),
-        },
-      }
-    end,
-  },
-
-  {
     "rust-lang/rust.vim",
     ft = "rust",
     init = function()
@@ -169,6 +101,18 @@ return {
       require("go").setup({
         lsp_inlay_hints = {
           enable = false,
+        },
+        lsp_cfg = {
+          settings = {
+            -- gopls = {
+            --   assignVariableTypes = false,
+            --   compositeLiteralFields = false,
+            --   compositeLiteralTypes = false,
+            --   constantValues = false,
+            --   functionTypeParameters = false,
+            --   parameterNames = false,
+            -- },
+          },
         },
       })
     end,

@@ -17,7 +17,8 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-      flavour = "mocha",
+      -- flavour = "mocha",
+      flavour = "macchiato",
       no_italic = true,
       term_colors = true,
       transparent_background = false,

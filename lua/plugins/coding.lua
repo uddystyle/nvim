@@ -3,23 +3,13 @@ return {
   {
     "hrsh7th/nvim-cmp",
     version = false, -- last release is way too old
-    event = "InsertEnter",
+    lazy = false,
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-
       "onsails/lspkind.nvim",
     },
-    -- Not all LSP servers add brackets when completing a function.
-    -- To better deal with this, LazyVim adds a custom option to cmp,
-    -- that you can configure. For example:
-    --
-    -- ```lua
-    -- opts = {
-    --   auto_brackets = { "python" }
-    -- }
-    -- ```
     opts = function()
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local cmp = require("cmp")
@@ -53,7 +43,7 @@ return {
         }),
         formatting = {
           format = function(_, item)
-            -- local icons = LazyVim.config.icons.kinds
+            local icons = LazyVim.config.icons.kinds
 
             item = lspkind.cmp_format({
               mode = "symbol_text",
@@ -62,9 +52,9 @@ return {
               menu = {},
             })(_, item)
 
-            -- if icons[item.kind] then
-            --   item.kind = icons[item.kind] .. item.kind
-            -- end
+            if icons[item.kind] then
+              item.kind = icons[item.kind] .. item.kind
+            end
 
             return item
           end,
