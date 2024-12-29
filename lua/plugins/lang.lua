@@ -20,6 +20,15 @@ return {
         enabled_commands = true,
         highlight_changed_variables = true,
         highlight_new_as_changed = false,
+        show_stop_reason = true,
+        commented = false,
+        only_first_definition = false,
+        all_references = false,
+        filter_references_pattern = "<module>",
+        virt_text_pos = "eol",
+        all_frames = false,
+        virt_lines = false,
+        virt_text_win_col = nil,
       })
       dap.adapters.lldb = {
         type = "executable",
@@ -119,5 +128,9 @@ return {
     event = { "CmdlineEnter" },
     ft = { "go", "gomod" },
     build = ':lua require("go.install").update_all_sync()',
+  },
+
+  {
+    "dmmulroy/ts-error-translator.nvim",
   },
 }

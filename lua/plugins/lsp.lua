@@ -40,14 +40,14 @@ return {
               },
             },
             typescript = {
-              updateImportsOnFileMove = { enabled = "always" },
+              updateImportsOnFileMove = { enabled = "never" },
               suggest = {
                 completeFunctionCalls = true,
               },
               inlayHints = {
                 enumMemberValues = { enabled = true },
-                functionLikeReturnTypes = { enabled = true },
-                parameterNames = { enabled = "literals" },
+                functionLikeReturnTypes = { enabled = false },
+                parameterNames = { enabled = false },
                 parameterTypes = { enabled = true },
                 propertyDeclarationTypes = { enabled = true },
                 variableTypes = { enabled = false },
