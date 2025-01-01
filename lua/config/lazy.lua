@@ -14,9 +14,8 @@ require("lazy").setup({
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
       opts = {
-        -- colorscheme = "kanagawa-dragon",
-        -- colorscheme = "tokyonight-night",
-        colorscheme = "catppuccin",
+        colorscheme = "tokyonight-night",
+        -- colorscheme = "catppuccin",
       },
     },
     -- import/override with your plugins
@@ -24,8 +23,6 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.rust" },
     { import = "lazyvim.plugins.extras.lang.ruby" },
     { import = "lazyvim.plugins.extras.lang.toml" },
-    -- { import = "lazyvim.plugins.extras.lang.clangd" },
-    -- { import = "lazyvim.plugins.extras.lang.go" },
     { import = "lazyvim.plugins.extras.lang.markdown" },
     { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
     { import = "plugins" },
