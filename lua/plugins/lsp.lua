@@ -23,10 +23,8 @@ return {
           filetypes = {
             "javascript",
             "javascriptreact",
-            "javascript.jsx",
             "typescript",
             "typescriptreact",
-            "typescript.tsx",
           },
           settings = {
             complate_function_calls = true,
@@ -44,14 +42,11 @@ return {
               suggest = {
                 completeFunctionCalls = true,
               },
-              inlayHints = {
-                enumMemberValues = { enabled = true },
-                functionLikeReturnTypes = { enabled = false },
-                parameterNames = { enabled = false },
-                parameterTypes = { enabled = true },
-                propertyDeclarationTypes = { enabled = true },
-                variableTypes = { enabled = false },
-              },
+              -- inlayHints = {
+              --   enumMemberValues = { enabled = true },
+              --   parameterTypes = { enabled = true },
+              --   propertyDeclarationTypes = { enabled = true },
+              -- },
             },
           },
         },
@@ -61,26 +56,29 @@ return {
           settings = {
             fallbackFlags = { "--fallback-style=llvm" },
           },
-          cmd = { "clangd", "--fallback-style={IndektWidth: 4, TabWidth: 4}" },
+        },
+
+        -- Zig(ZLS)
+        zls = {
+          filetypes = { "zig" },
+          settings = {
+            enable_autofix = true,
+            warn_style = true,
+          },
         },
       },
       setup = {
-        tsserver = function(_, opts)
-          return opts
-        end,
         vtsls = function(_, opts)
           LazyVim.lsp.on_attach(function(client, buffer)
             client.commands["_typescript.moveToFileRefactoring"] = function(command, ctx)
               ---@type string, string, lsp.Range
               local action, uri, range = unpack(command.arguments)
-
               local function move(newf)
                 client.request("workspace/executeCommand", {
                   command = command.command,
                   arguments = { action, uri, range, newf },
                 })
               end
-
               local fname = vim.uri_to_fname(uri)
               client.request("workspace/executeCommand", {
                 command = "typescript.tsserverRequest",
@@ -199,5 +197,40 @@ return {
         end,
       },
     },
+  },
+
+  -- null-ls
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local null_ls = require("null-ls")
+
+      null_ls.setup({
+        sources = {
+          -- Prettier
+          null_ls.builtins.formatting.prettier.with({
+            filetypes = { "javascript", "typescript", "typescriptreact", "javascriptreact", "json" },
+          }),
+          -- ESLint
+          null_ls.builtins.diagnostics.eslint_d,
+          null_ls.builtins.formatting.eslint_d,
+
+          -- Zigfmt (Zig Formatter)
+          null_ls.builtins.formatting.zigfmt,
+        },
+        -- format on save
+        on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({ async = false })
+              end,
+            })
+          end
+        end,
+      })
+    end,
   },
 }

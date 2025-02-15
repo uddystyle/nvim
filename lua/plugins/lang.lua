@@ -113,14 +113,14 @@ return {
         },
         lsp_cfg = {
           settings = {
-            -- gopls = {
-            --   assignVariableTypes = false,
-            --   compositeLiteralFields = false,
-            --   compositeLiteralTypes = false,
-            --   constantValues = false,
-            --   functionTypeParameters = false,
-            --   parameterNames = false,
-            -- },
+            gopls = {
+              assignVariableTypes = false,
+              compositeLiteralFields = false,
+              compositeLiteralTypes = false,
+              constantValues = false,
+              functionTypeParameters = false,
+              parameterNames = false,
+            },
           },
         },
       })
