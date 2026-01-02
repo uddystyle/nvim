@@ -6,7 +6,7 @@ return {
     dependencies = {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "theHamsta/nvim-dap-virtual-text",
     },
 
@@ -17,7 +17,9 @@ return {
       require("dapui").setup()
       require("nvim-dap-virtual-text").setup({
         enabled = true,
-        enabled_commands = true,
+        enable_commands = true,
+        clear_on_continue = true,
+        separator = " = ",
         highlight_changed_variables = true,
         highlight_new_as_changed = false,
         show_stop_reason = true,
@@ -28,7 +30,14 @@ return {
         virt_text_pos = "eol",
         all_frames = false,
         virt_lines = false,
+        virt_lines_above = true,
         virt_text_win_col = nil,
+        text_prefix = " ",
+        error_prefix = " ",
+        info_prefix = " ",
+        display_callback = function(variable)
+          return variable.value
+        end,
       })
       dap.adapters.lldb = {
         type = "executable",
@@ -36,12 +45,22 @@ return {
         name = "lldb",
       }
 
-      for name, sign in pairs(LazyVim.config.icons.dap) do
-        sign = type(sign) == "table" and sign or { sign }
-        vim.fn.sign_define(
-          "Dap" .. name,
-          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-        )
+      local dap_icons = LazyVim.config.icons.dap
+
+      for name, icon in pairs(dap_icons) do
+        local sign
+        if type(icon) == "string" then
+          sign = { icon, "DiagnosticInfo" }
+        else
+          sign = icon
+        end
+
+        vim.fn.sign_define("Dap" .. name, {
+          text = sign[1],
+          texthl = sign[2],
+          linehl = sign[3],
+          numhl = sign[4],
+        })
       end
 
       vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
@@ -49,8 +68,14 @@ return {
 
       -- Eval var under cursor
       vim.keymap.set("n", "<space>?", function()
-        require("dapui").eval(nil, { enter = true })
-      end)
+        local expr = vim.fn.expand("<cword>")
+        require("dapui").eval(expr, {
+          context = "hover",
+          enter = true,
+          width = 40,
+          height = 10,
+        })
+      end, { desc = "DAP Eval" })
 
       vim.keymap.set("n", "<F1>", dap.continue)
       vim.keymap.set("n", "<F2>", dap.step_into)

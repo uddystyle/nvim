@@ -31,6 +31,14 @@ keymap.set("n", "C-j", function()
   vim.diagnostic.goto_next()
 end, opts)
 
+keymap.set("n", "<leader>cd", function()
+  local _, winnr = vim.diagnostic.open_float({ border = "rounded" })
+  if winnr then
+    vim.api.nvim_set_current_win(winnr)
+    vim.api.nvim_set_option_value("winhighlight", "Normal:NormalFloat,FloatBorder:FloatBorder", { win = winnr })
+  end
+end, { noremap = true, silent = true, desc = "Line Diagnostics (with focus)" })
+
 -- Move
 keymap.set("n", "<C-h>", "^", opts)
 keymap.set("n", "<C-l>", "$", opts)

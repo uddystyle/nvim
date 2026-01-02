@@ -39,3 +39,8 @@ vim.o.listchars = "tab:  ,trail:･"
 -- Terminals configuration for colorscheme
 vim.o.termguicolors = true
 vim.o.background = "dark"
+
+-- Diagnostics configuration
+vim.diagnostic.config({
+  virtual_text = false,
+})

@@ -51,11 +51,16 @@ return {
         callback = function()
           if package.loaded["neo-tree"] then
             return
-          else
-            local stats = vim.uv.fs_stat(vim.fn.argv(0))
-            if stats and stats.type == "directory" then
-              require("neo-tree")
-            end
+          end
+
+          local arg = vim.fn.argv()[1]
+          if not arg then
+            return
+          end
+
+          local stats = vim.uv.fs_stat(arg)
+          if stats and stats.type == "directly" then
+            require("neo-tree")
           end
         end,
       })
@@ -301,104 +306,104 @@ return {
     end,
   },
 
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = { "LazyFile", "VeryLazy" },
-    lazy = vim.fn.argc(-1) == 0,
-    init = function(plugin)
-      require("lazy.core.loader").add_to_rtp(plugin)
-      require("nvim-treesitter.query_predicates")
-    end,
-    cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-    keys = {
-      { "<c-space>", desc = "Increment Selection" },
-      { "<bs>", desc = "Decrement Selection", mode = "x" },
-    },
-    opts_extend = { "ensure_installed" },
-    ---@type TSConfig
-    ---@diagnostic disable-next-line: missing-fields
-    opts = {
-      highlight = { enable = true },
-      indent = { enable = true },
-      ensure_installed = {
-        "c",
-        "cpp",
-        "css",
-        "go",
-        "graphql",
-        "html",
-        "javascript",
-        "json",
-        "bash",
-        "lua",
-        "python",
-        "scss",
-        "sql",
-        "svelte",
-        "rust",
-        "toml",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "zig",
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
-      textobjects = {
-        move = {
-          enable = true,
-          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-        },
-      },
-    },
-    config = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
-      end
-
-      vim.keymap.set(
-        "n",
-        "<leader>dp",
-        vim.diagnostic.goto_prev,
-        { desc = "Go to previous diagnostic message", noremap = true, silent = true }
-      )
-
-      vim.keymap.set(
-        "n",
-        "<leader>dn",
-        vim.diagnostic.goto_next,
-        { desc = "Go to next diagnostic message", noremap = true, silent = true }
-      )
-
-      vim.keymap.set(
-        "n",
-        "<leader>do",
-        vim.diagnostic.open_float,
-        { desc = "Open floating diagnostic message", noremap = true, silent = true }
-      )
-
-      vim.keymap.set(
-        "n",
-        "<leader>ds",
-        vim.diagnostic.setloclist,
-        { desc = "Open diagnostics list", noremap = true, silent = true }
-      )
-
-      require("nvim-treesitter.configs").setup(opts)
-    end,
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   build = ":TSUpdate",
+  --   event = { "LazyFile", "VeryLazy" },
+  --   lazy = vim.fn.argc(-1) == 0,
+  --   init = function(plugin)
+  --     require("lazy.core.loader").add_to_rtp(plugin)
+  --     require("nvim-treesitter.query_predicates")
+  --   end,
+  --   cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+  --   keys = {
+  --     { "<c-space>", desc = "Increment Selection" },
+  --     { "<bs>", desc = "Decrement Selection", mode = "x" },
+  --   },
+  --   opts_extend = { "ensure_installed" },
+  --   ---@type TSConfig
+  --   ---@diagnostic disable-next-line: missing-fields
+  --   opts = {
+  --     highlight = { enable = true },
+  --     indent = { enable = true },
+  --     ensure_installed = {
+  --       "c",
+  --       "cpp",
+  --       "css",
+  --       "go",
+  --       "graphql",
+  --       "html",
+  --       "javascript",
+  --       "json",
+  --       "bash",
+  --       "lua",
+  --       "python",
+  --       "scss",
+  --       "sql",
+  --       "svelte",
+  --       "rust",
+  --       "toml",
+  --       "tsx",
+  --       "typescript",
+  --       "vim",
+  --       "vimdoc",
+  --       "zig",
+  --     },
+  --     incremental_selection = {
+  --       enable = true,
+  --       keymaps = {
+  --         init_selection = "<C-space>",
+  --         node_incremental = "<C-space>",
+  --         scope_incremental = false,
+  --         node_decremental = "<bs>",
+  --       },
+  --     },
+  --     textobjects = {
+  --       move = {
+  --         enable = true,
+  --         goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+  --         goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+  --         goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+  --         goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
+  --       },
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     if type(opts.ensure_installed) == "table" then
+  --       opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
+  --     end
+  --
+  --     vim.keymap.set(
+  --       "n",
+  --       "<leader>dp",
+  --       vim.diagnostic.goto_prev,
+  --       { desc = "Go to previous diagnostic message", noremap = true, silent = true }
+  --     )
+  --
+  --     vim.keymap.set(
+  --       "n",
+  --       "<leader>dn",
+  --       vim.diagnostic.goto_next,
+  --       { desc = "Go to next diagnostic message", noremap = true, silent = true }
+  --     )
+  --
+  --     vim.keymap.set(
+  --       "n",
+  --       "<leader>do",
+  --       vim.diagnostic.open_float,
+  --       { desc = "Open floating diagnostic message", noremap = true, silent = true }
+  --     )
+  --
+  --     vim.keymap.set(
+  --       "n",
+  --       "<leader>ds",
+  --       vim.diagnostic.setloclist,
+  --       { desc = "Open diagnostics list", noremap = true, silent = true }
+  --     )
+  --
+  --     require("nvim-treesitter.configs").setup(opts)
+  --   end,
+  -- },
 
   {
     "folke/which-key.nvim",
@@ -463,7 +468,7 @@ return {
   },
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "stylua",
