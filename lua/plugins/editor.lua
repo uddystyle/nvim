@@ -109,7 +109,19 @@ return {
     },
     config = function(_, opts)
       local function on_move(data)
-        LazyVim.lsp.on_rename(data.source, data.destination)
+        local clients = vim.lsp.get_clients()
+        for _, client in ipairs(clients) do
+          if client:supports_method("workspace/didRenameFiles") then
+            client:notify("workspace/didRenameFiles", {
+              files = {
+                {
+                  oldUri = vim.uri_from_fname(data.source),
+                  newUri = vim.uri_from_fname(data.destination),
+                },
+              },
+            })
+          end
+        end
       end
 
       local events = require("neo-tree.events")
@@ -306,104 +318,34 @@ return {
     end,
   },
 
-  -- {
-  --   "nvim-treesitter/nvim-treesitter",
-  --   build = ":TSUpdate",
-  --   event = { "LazyFile", "VeryLazy" },
-  --   lazy = vim.fn.argc(-1) == 0,
-  --   init = function(plugin)
-  --     require("lazy.core.loader").add_to_rtp(plugin)
-  --     require("nvim-treesitter.query_predicates")
-  --   end,
-  --   cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-  --   keys = {
-  --     { "<c-space>", desc = "Increment Selection" },
-  --     { "<bs>", desc = "Decrement Selection", mode = "x" },
-  --   },
-  --   opts_extend = { "ensure_installed" },
-  --   ---@type TSConfig
-  --   ---@diagnostic disable-next-line: missing-fields
-  --   opts = {
-  --     highlight = { enable = true },
-  --     indent = { enable = true },
-  --     ensure_installed = {
-  --       "c",
-  --       "cpp",
-  --       "css",
-  --       "go",
-  --       "graphql",
-  --       "html",
-  --       "javascript",
-  --       "json",
-  --       "bash",
-  --       "lua",
-  --       "python",
-  --       "scss",
-  --       "sql",
-  --       "svelte",
-  --       "rust",
-  --       "toml",
-  --       "tsx",
-  --       "typescript",
-  --       "vim",
-  --       "vimdoc",
-  --       "zig",
-  --     },
-  --     incremental_selection = {
-  --       enable = true,
-  --       keymaps = {
-  --         init_selection = "<C-space>",
-  --         node_incremental = "<C-space>",
-  --         scope_incremental = false,
-  --         node_decremental = "<bs>",
-  --       },
-  --     },
-  --     textobjects = {
-  --       move = {
-  --         enable = true,
-  --         goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
-  --         goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
-  --         goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
-  --         goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
-  --       },
-  --     },
-  --   },
-  --   config = function(_, opts)
-  --     if type(opts.ensure_installed) == "table" then
-  --       opts.ensure_installed = LazyVim.dedup(opts.ensure_installed)
-  --     end
-  --
-  --     vim.keymap.set(
-  --       "n",
-  --       "<leader>dp",
-  --       vim.diagnostic.goto_prev,
-  --       { desc = "Go to previous diagnostic message", noremap = true, silent = true }
-  --     )
-  --
-  --     vim.keymap.set(
-  --       "n",
-  --       "<leader>dn",
-  --       vim.diagnostic.goto_next,
-  --       { desc = "Go to next diagnostic message", noremap = true, silent = true }
-  --     )
-  --
-  --     vim.keymap.set(
-  --       "n",
-  --       "<leader>do",
-  --       vim.diagnostic.open_float,
-  --       { desc = "Open floating diagnostic message", noremap = true, silent = true }
-  --     )
-  --
-  --     vim.keymap.set(
-  --       "n",
-  --       "<leader>ds",
-  --       vim.diagnostic.setloclist,
-  --       { desc = "Open diagnostics list", noremap = true, silent = true }
-  --     )
-  --
-  --     require("nvim-treesitter.configs").setup(opts)
-  --   end,
-  -- },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        "c",
+        "cpp",
+        "css",
+        "go",
+        "graphql",
+        "html",
+        "javascript",
+        "json",
+        "bash",
+        "lua",
+        "python",
+        "scss",
+        "sql",
+        "svelte",
+        "rust",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "zig",
+      },
+    },
+  },
 
   {
     "folke/which-key.nvim",
