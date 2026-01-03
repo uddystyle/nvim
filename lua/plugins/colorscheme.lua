@@ -18,6 +18,10 @@ return {
   },
 
   {
+    "dybdeskarphet/gruvbox-minimal.nvim",
+  },
+
+  {
     "catppuccin/nvim",
     name = "catppuccin",
     lazy = false,
