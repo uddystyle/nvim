@@ -19,6 +19,31 @@ return {
 
   {
     "dybdeskarphet/gruvbox-minimal.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        pattern = "gruvbox-minimal",
+        callback = function()
+          vim.api.nvim_set_hl(0, "Comment", { fg = "#665c54", italic = false })
+        end,
+      })
+    end,
+  },
+
+  {
+    "sainnhe/everforest",
+    lazy = false,
+    priority = 1000,
+    init = function()
+      vim.g.everforest_background = "hard"
+    end,
+  },
+
+  {
+    "xero/miasma.nvim",
+    lazy = false,
+    priority = 1000,
   },
 
   {

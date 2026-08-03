@@ -28,7 +28,7 @@ keymap.set("n", "sv", "<Cmd>vsplit<cr>", opts)
 
 -- diagnostics
 keymap.set("n", "C-j", function()
-  vim.diagnostic.goto_next()
+  vim.diagnostic.jump({ count = 1 })
 end, opts)
 
 keymap.set("n", "<leader>cd", function()
@@ -39,10 +39,26 @@ keymap.set("n", "<leader>cd", function()
   end
 end, { noremap = true, silent = true, desc = "Line Diagnostics (with focus)" })
 
-keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, { noremap = true, silent = true, desc = "Go to previous diagnostic" })
-keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, { noremap = true, silent = true, desc = "Go to next diagnostic" })
-keymap.set("n", "<leader>do", vim.diagnostic.open_float, { noremap = true, silent = true, desc = "Open floating diagnostic" })
-keymap.set("n", "<leader>ds", vim.diagnostic.setloclist, { noremap = true, silent = true, desc = "Open diagnostics list" })
+keymap.set("n", "<leader>dp", function()
+  vim.diagnostic.jump({ count = -1 })
+end, { noremap = true, silent = true, desc = "Go to previous diagnostic" })
+
+keymap.set("n", "<leader>dn", function()
+  vim.diagnostic.jump({ count = 1 })
+end, { noremap = true, silent = true, desc = "Go to next diagnostic" })
+
+keymap.set(
+  "n",
+  "<leader>do",
+  vim.diagnostic.open_float,
+  { noremap = true, silent = true, desc = "Open floating diagnostic" }
+)
+keymap.set(
+  "n",
+  "<leader>ds",
+  vim.diagnostic.setloclist,
+  { noremap = true, silent = true, desc = "Open diagnostics list" }
+)
 
 -- Move
 keymap.set("n", "<C-h>", "^", opts)
