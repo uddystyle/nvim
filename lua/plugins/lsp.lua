@@ -13,11 +13,10 @@ return {
   -- For typescript
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "jose-elias-alvarez/typescript.nvim",
-    },
+
     opts = {
       servers = {
+        -- tsserver は使わない
         tsserver = {
           enabled = false,
         },
@@ -31,29 +30,54 @@ return {
           },
 
           on_attach = function(client, buffer)
-            -- typescript.nvim のキーマップ
-            vim.keymap.set(
-              "n",
-              "<leader>co",
-              "<cmd>TypescriptOrganizeImports<CR>",
-              { buffer = buffer, desc = "Organize Imports" }
-            )
+            -- Organize Imports
+            vim.keymap.set("n", "<leader>co", function()
+              client:exec_cmd({
+                command = "typescript.organizeImports",
+                arguments = {
+                  vim.api.nvim_buf_get_name(buffer),
+                },
+              })
+            end, {
+              buffer = buffer,
+              desc = "Organize Imports",
+            })
 
-            vim.keymap.set(
-              "n",
-              "<leader>cR",
-              "<cmd>TypescriptRenameFile<CR>",
-              { buffer = buffer, desc = "Rename File" }
-            )
+            -- Rename current file
+            vim.keymap.set("n", "<leader>cR", function()
+              local old_name = vim.api.nvim_buf_get_name(buffer)
 
-            -- moveToFileRefactoring の上書き
+              vim.ui.input({
+                prompt = "New file name: ",
+                default = old_name,
+                completion = "file",
+              }, function(new_name)
+                if not new_name or new_name == "" or new_name == old_name then
+                  return
+                end
+
+                vim.lsp.util.rename(old_name, new_name)
+
+                vim.cmd.edit(vim.fn.fnameescape(new_name))
+              end)
+            end, {
+              buffer = buffer,
+              desc = "Rename File",
+            })
+
+            -- vtsls: Move to File Refactoring
             client.commands["_typescript.moveToFileRefactoring"] = function(command)
               local action, uri, range = unpack(command.arguments)
 
               local function move(newf)
                 client.request("workspace/executeCommand", {
                   command = command.command,
-                  arguments = { action, uri, range, newf },
+                  arguments = {
+                    action,
+                    uri,
+                    range,
+                    newf,
+                  },
                 })
               end
 
@@ -71,7 +95,16 @@ return {
                     endOffset = range["end"].character + 1,
                   },
                 },
-              }, function(_, result)
+              }, function(err, result)
+                if err then
+                  vim.notify("Failed to get move suggestions: " .. vim.inspect(err), vim.log.levels.ERROR)
+                  return
+                end
+
+                if not result or not result.body or not result.body.files then
+                  return
+                end
+
                 local files = result.body.files
                 table.insert(files, 1, "Enter new path...")
 
@@ -91,7 +124,7 @@ return {
                       default = vim.fn.fnamemodify(fname, ":h") .. "/",
                       completion = "file",
                     }, function(newf)
-                      if newf then
+                      if newf and newf ~= "" then
                         move(newf)
                       end
                     end)
@@ -106,8 +139,18 @@ return {
           settings = {
             vtsls = {
               autoUseWorkspaceTsdk = true,
+
+              -- Move to File のCode Actionを有効化
+              enableMoveToFileCodeAction = true,
             },
+
             typescript = {
+              suggest = {
+                completeFunctionCalls = true,
+              },
+            },
+
+            javascript = {
               suggest = {
                 completeFunctionCalls = true,
               },
