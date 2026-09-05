@@ -1,59 +1,33 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  -- bootstrap lazy.nvim
-  -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+  local output = vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "--branch=stable",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
+  if vim.v.shell_error ~= 0 then
+    error("Failed to bootstrap lazy.nvim:\n" .. output)
+  end
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  spec = {
-    -- add LazyVim and import its plugins
-    {
-      "LazyVim/LazyVim",
-      import = "lazyvim.plugins",
-      opts = {
-        -- colorscheme = "tokyonight-night",
-        -- colorscheme = "gruvbox-minimal",
-        -- colorscheme = "miasma",
-        colorscheme = "catppuccin-macchiato",
-      },
-    },
-    -- import/override with your plugins
-    { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.rust" },
-    { import = "lazyvim.plugins.extras.lang.ruby" },
-    { import = "lazyvim.plugins.extras.lang.toml" },
-    { import = "lazyvim.plugins.extras.lang.markdown" },
-    { import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-    { import = "plugins" },
-  },
-  defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
-    lazy = true,
-    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-    -- have outdated releases, which may break your Neovim install.
-    version = false, -- always use the latest git commit
-    -- version = "*", -- try installing the latest stable version for plugins that support semver
-  },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  spec = { { import = "plugins" } },
+  lockfile = vim.env.NVIM_STANDALONE_TEST == "1" and vim.fn.stdpath("data") .. "/lazy-lock.json"
+    or vim.fn.stdpath("config") .. "/lazy-lock.json",
+  defaults = { lazy = true, version = false },
+  install = { missing = vim.env.NVIM_STANDALONE_TEST ~= "1" },
+  checker = { enabled = true },
+  change_detection = { notify = false },
   performance = {
     rtp = {
-      disabled_plugins = {
-        "gzip",
-        -- "matchit",
-        -- "matchparen",
-        "netrwPlugin",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-      },
+      reset = true,
+      disabled_plugins = { "gzip", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
     },
-  },
-  change_detection = {
-    notify = false,
   },
 })

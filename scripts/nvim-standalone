@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+config_home=$(mktemp -d)
+trap 'rm -rf "$config_home"' EXIT
+ln -s "$repo_root" "$config_home/nvim-standalone"
+
+XDG_CONFIG_HOME="$config_home" NVIM_APPNAME=nvim-standalone exec nvim "$@"
