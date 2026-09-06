@@ -30,11 +30,26 @@
 
 - 本設定も root の `init.lua`、`lua/config/`、`lua/plugins/`、`lazy.nvim` の `{ import = "plugins" }` で構成され、LazyVim は import しない。
   - 出典: `init.lua`, `lua/config/lazy.lua`
-- 本設定は lockfile を維持する。これは参照設定との意図的な差分で、再現性を優先する。
-  - 出典: `lazy-lock.json`, `lua/config/lazy.lua`
+- 本設定も lockfile を repository に含めない。lazy.nvim の lockfile は `stdpath("state")` に置く。
+  - 出典: `lua/config/lazy.lua`
 - 本設定は fzf-lua、Neo-tree、現在利用中の言語・UI設定を保持する。Telescope や TypeScript 専用構成へ寄せる理由はない。
   - 出典: `lua/plugins/fzf.lua`, `lua/plugins/tools.lua`, `lua/plugins/lsp.lua`
 
+## 系統の比較
+
+| 観点 | この設定 | dmmulroy 設定 |
+|---|---|---|
+| plugin manager | lazy.nvim を直接 bootstrap、root の `lua/plugins/` を import | lazy.nvim を直接 bootstrap、`lua/plugins/` を import |
+| revision 管理 | repository に lockfile を置かず runtime state に置く | config directory に lockfile なし |
+| plugin の分割粒度 | 10ファイルで機能群ごとに集約 | 35ファイルで概ね 1 plugin ごと |
+| file picker / explorer | fzf-lua と Neo-tree | Telescope（jj extension 含む）と Oil |
+| LSP 管理 | Mason + mason-lspconfig。明示 server のみ `vim.lsp.enable()` し、formatter を LSP 化しない | Mason、mason-lspconfig、mason-tool-installer。TypeScript は typescript-tools.nvim を使う |
+| formatter | Conform で Lua、Shell、Python、JS/TS、Go、Rust、Swift、Ruby を設定 | Conform で config file がある JS/TS 系を `oxfmt` → `biome` → `prettierd`、Lua を Stylua |
+| 言語の重点 | 幅広い LSP と Go / Rust / Cargo | TypeScript / JS 中心。TwoSlash、TSC、typescript-tools を追加 |
+| UI / workflow | themes を複数保持、lualine、which-key、Harpoon、Gitsigns | Snacks、Oil、Diffview、Outline、Spectre、Undotree、Wilder、UFO、tiny-inline-diagnostic など workflow plugin が多い |
+
+この設定の plugin 一覧は `lua/plugins/`、参照設定の plugin file 一覧は `home/.config/nvim/lua/plugins/` で再確認できる。
+
 ## 結論
 
-参照設定から採用済みの本質は「LazyVim を介さず lazy.nvim と plugin spec を直接所有する構成」である。plugin 選択・keymap・LSP/formatter 方針は利用目的が異なるため、参照設定への同一化は行わない。
+共通する系統は「LazyVim を介さず lazy.nvim と plugin spec を直接所有する構成」である。一方、この設定は汎用・多言語型、参照設定は TypeScript 中心・workflow 拡張型である。plugin 選択を参照設定へ同一化する理由はない。

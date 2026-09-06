@@ -18,8 +18,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = { { import = "plugins" } },
+  -- Keep lazy.nvim's runtime state out of this configuration repository.
   lockfile = vim.env.NVIM_STANDALONE_TEST == "1" and vim.fn.stdpath("data") .. "/lazy-lock.json"
-    or vim.fn.stdpath("config") .. "/lazy-lock.json",
+    or vim.fn.stdpath("state") .. "/lazy-lock.json",
   defaults = { lazy = true, version = false },
   install = { missing = vim.env.NVIM_STANDALONE_TEST ~= "1" },
   checker = { enabled = true },

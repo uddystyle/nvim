@@ -49,13 +49,17 @@ return {
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
       { "folke/lazydev.nvim", ft = "lua", opts = {} },
+      { "j-hui/fidget.nvim", opts = {} },
     },
     keys = {
       { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" },
     },
     config = function()
       require("mason").setup()
-      require("mason-lspconfig").setup({ ensure_installed = servers })
+      require("mason-lspconfig").setup({
+        ensure_installed = servers,
+        automatic_enable = false,
+      })
 
       if vim.env.NVIM_STANDALONE_SKIP_MASON_INSTALL ~= "1" then
         local registry = require("mason-registry")

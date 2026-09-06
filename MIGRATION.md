@@ -4,7 +4,7 @@
 
 - 現行機能を維持して LazyVim 依存だけを外す。
 - 独立設定を `NVIM_APPNAME` で検証してから切り替える。
-- `lazy-lock.json` を維持してプラグイン revision を固定する。
+- plugin revision は repository に固定せず、lazy.nvim の runtime state で管理する。
 - 移植対象は自前 spec と明示的に選んだ extras、およびそれらが必要とする依存関係に限る。LazyVim の標準機能は移植しない。
 
 ## 移行前ベースライン
@@ -27,7 +27,7 @@
 ## 実施順
 
 1. root に lazy.nvim だけを bootstrap する独立 config を作る。`LazyVim` を spec に含めない。 **完了**
-   - `lua/config/lazy.lua` は root の `lazy-lock.json` を使用する。
+   - `lua/config/lazy.lua` は lockfile を `stdpath("state")` に置き、repository には含めない。
    - `tests/standalone-smoke.sh` は独立した config/data directory で headless 起動し、LazyVim を読み込まないことを確認する。
 2. 自前 spec・明示 extra・必要な dependency を分類する。 **完了**
    - LazyVim の標準 plugin、標準 keymap、標準 UI は standalone から除外する。
@@ -55,6 +55,6 @@
 
 ## 判断ルール
 
-- 移行中に出る追加 dependency は、現行 lockfile か現行動作から必要性を確認して追加する。
+- 移行中に出る追加 dependency は、現行動作から必要性を確認して追加する。
 - 挙動を置き換える場合は、対応する keymap／command／イベントを先に検証項目へ追加する。
 - `lazy = false` は起動時に必要なものだけに限定し、各採用理由を spec の近くに残す。
