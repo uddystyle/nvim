@@ -59,7 +59,16 @@ return {
       { "<leader>sR", "<cmd>FzfLua resume<cr>", desc = "Resume" },
       { "<leader>ss", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Goto Symbol" },
       { "<leader>sS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", desc = "Goto Symbol (Workspace)" },
-      { "<leader>uC", "<cmd>FzfLua colorschemes<cr>", desc = "Colorscheme with Preview" },
+      {
+        "<leader>uC",
+        function()
+          require("fzf-lua").fzf_exec(require("config.themes").names(), {
+            prompt = "Themes> ",
+            actions = { ["default"] = function(selected) require("config.themes").apply(selected[1]) end },
+          })
+        end,
+        desc = "Select Colorscheme",
+      },
       { "<leader>gc", "<cmd>FzfLua git_commits<cr>", desc = "Commits" },
       { "<leader>gd", "<cmd>FzfLua git_diff<cr>", desc = "Git Diff (files)" },
       { "<leader>gl", "<cmd>FzfLua git_commits<cr>", desc = "Commits" },

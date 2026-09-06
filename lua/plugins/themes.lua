@@ -1,9 +1,17 @@
+vim.api.nvim_create_user_command("Theme", function(args)
+  require("config.themes").apply(args.args)
+end, {
+  nargs = 1,
+  complete = function() return require("config.themes").names() end,
+  desc = "Load and apply a configured theme",
+})
+
 return {
-  { "folke/tokyonight.nvim", lazy = vim.env.NVIM_STANDALONE_TEST == "1", priority = 1000, opts = { style = "night", terminal_colors = true, transparent = false } },
-  { "morhetz/gruvbox", lazy = vim.env.NVIM_STANDALONE_TEST == "1", priority = 1000 },
+  { "folke/tokyonight.nvim", lazy = true, priority = 1000, opts = { style = "night", terminal_colors = true, transparent = false } },
+  { "morhetz/gruvbox", lazy = true, priority = 1000 },
   {
     "dybdeskarphet/gruvbox-minimal.nvim",
-    lazy = vim.env.NVIM_STANDALONE_TEST == "1",
+    lazy = true,
     priority = 1000,
     config = function()
       vim.api.nvim_create_autocmd("ColorScheme", {
@@ -12,11 +20,11 @@ return {
       })
     end,
   },
-  { "sainnhe/everforest", lazy = vim.env.NVIM_STANDALONE_TEST == "1", priority = 1000, init = function() vim.g.everforest_background = "hard" end },
-  { "xero/miasma.nvim", lazy = vim.env.NVIM_STANDALONE_TEST == "1", priority = 1000 },
+  { "sainnhe/everforest", lazy = true, priority = 1000, init = function() vim.g.everforest_background = "hard" end },
+  { "xero/miasma.nvim", lazy = true, priority = 1000 },
   {
     "navarasu/onedark.nvim",
-    lazy = vim.env.NVIM_STANDALONE_TEST == "1",
+    lazy = true,
     opts = {
       style = "dark",
       transparent = false,
@@ -25,7 +33,7 @@ return {
   },
   {
     "rebelot/kanagawa.nvim",
-    lazy = vim.env.NVIM_STANDALONE_TEST == "1",
+    lazy = true,
     priority = 1000,
     opts = {
       commentStyle = { italic = true },
@@ -47,12 +55,12 @@ return {
   {
     "aktersnurra/no-clown-fiesta.nvim",
     priority = 1000,
-    lazy = vim.env.NVIM_STANDALONE_TEST == "1",
+    lazy = true,
     opts = { styles = { types = { bold = true }, lsp = { underline = false }, match_paren = { underline = true } } },
   },
   {
     "metalelf0/kintsugi-nvim",
-    lazy = vim.env.NVIM_STANDALONE_TEST == "1",
+    lazy = true,
     priority = 1000,
     config = function()
       require("kintsugi").setup({ variant = "flared", transparent = false, terminal_colors = true, bold_keywords = true, italic_comments = false })

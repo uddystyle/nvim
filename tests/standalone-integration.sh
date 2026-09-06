@@ -15,7 +15,7 @@ NVIM_STANDALONE_SKIP_MASON_INSTALL=1 "$repo_root/scripts/nvim-standalone" --head
   '+Lazy load blink.cmp' \
   '+Lazy load neo-tree.nvim' \
   '+sleep 3000m' \
-  '+lua assert(pcall(require, "fidget"), "Fidget did not load with LSP"); local opts=require("fzf-lua.config").setup_opts.files; assert(opts.hidden and opts.no_ignore, "file picker must include hidden and ignored files"); local blink=require("blink.cmp.config"); assert(vim.tbl_contains(blink.sources.default, "lsp"), "Blink LSP source is missing"); local clients={}; for _, client in ipairs(vim.lsp.get_clients()) do clients[client.name]=true end; assert(clients.lua_ls, "Lua LSP did not attach"); assert(not clients.stylua, "Stylua must be used only as a formatter")' \
+  '+lua assert(pcall(require, "fidget"), "Fidget did not load with LSP"); assert(pcall(require, "gitsigns"), "Gitsigns did not load after reading a file"); local opts=require("fzf-lua.config").setup_opts.files; assert(opts.hidden and opts.no_ignore, "file picker must include hidden and ignored files"); local blink=require("blink.cmp.config"); assert(vim.tbl_contains(blink.sources.default, "lsp"), "Blink LSP source is missing"); local clients={}; for _, client in ipairs(vim.lsp.get_clients()) do clients[client.name]=true end; assert(clients.lua_ls, "Lua LSP did not attach"); assert(not clients.stylua, "Stylua must be used only as a formatter")' \
   '+qa'
 
 NVIM_STANDALONE_SKIP_MASON_INSTALL=1 "$repo_root/scripts/nvim-standalone" --headless "$tmpdir/sample.ts" \

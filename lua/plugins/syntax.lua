@@ -13,6 +13,21 @@ return {
     },
   },
   {
+    "kevinhwang91/nvim-ufo",
+    event = "BufReadPost",
+    dependencies = { "kevinhwang91/promise-async" },
+    opts = {
+      provider_selector = function(_, _, buftype)
+        if buftype ~= "" then return "" end
+        return { "treesitter", "indent" }
+      end,
+    },
+    keys = {
+      { "zR", function() require("ufo").openAllFolds() end, desc = "Open all folds" },
+      { "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds" },
+    },
+  },
+  {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
     opts = {},

@@ -50,6 +50,15 @@
 
 この設定の plugin 一覧は `lua/plugins/`、参照設定の plugin file 一覧は `home/.config/nvim/lua/plugins/` で再確認できる。
 
+## 起動速度で参考になる点
+
+- 参照設定は大半の plugin に `event`、`ft`、`cmd`、`keys` を指定し、必要になるまで load しない。LSP は `BufReadPost`、blink.cmp は `VeryLazy` で load する。
+  - 出典: `home/.config/nvim/lua/plugins/lsp.lua`, `home/.config/nvim/lua/plugins/blink-cmp.lua`
+- この設定の headless startup は約 25ms だった。`nvim --headless --startuptime /tmp/nvim-startuptime.log '+qa'` で測定した。eager load している複数 colorscheme のうち Kintsugi が約 1.7ms を占める。
+  - 再現: 上記 command。`sort -nrk2 /tmp/nvim-startuptime.log | head`
+- 起動最適化の最初の候補は、現在使う Catppuccin だけを eager load し、切替用の他 theme を遅延 load にすることである。これは参照設定の Catppuccin 1 theme を eager load する方針とも一致する。
+  - 出典: `lua/plugins/themes.lua`, `home/.config/nvim/lua/plugins/color-scheme.lua`
+
 ## 結論
 
 共通する系統は「LazyVim を介さず lazy.nvim と plugin spec を直接所有する構成」である。一方、この設定は汎用・多言語型、参照設定は TypeScript 中心・workflow 拡張型である。plugin 選択を参照設定へ同一化する理由はない。

@@ -11,6 +11,14 @@ return {
       no_italic = true,
       term_colors = true,
       transparent_background = false,
+      integrations = {
+        fidget = true,
+        gitsigns = true,
+        harpoon = true,
+        mason = true,
+        render_markdown = true,
+        which_key = true,
+      },
     },
     config = function(_, opts)
       require("catppuccin").setup(opts)

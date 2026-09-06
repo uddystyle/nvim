@@ -22,6 +22,10 @@ vim.g.python3_host_prog = "/opt/homebrew/bin/python3.11"
 -- Smoothscroll
 vim.o.smoothscroll = true
 vim.o.wrap = false
+vim.o.foldcolumn = "1"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 
 -- Basics
 vim.o.ttyfast = true

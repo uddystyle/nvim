@@ -44,7 +44,7 @@ local mason_packages = {
 return {
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       "mason-org/mason.nvim",
       "mason-org/mason-lspconfig.nvim",
