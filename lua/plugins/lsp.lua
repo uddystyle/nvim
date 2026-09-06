@@ -145,6 +145,27 @@ return {
         },
       })
 
+      local lsp_keymaps = vim.api.nvim_create_augroup("config-lsp-keymaps", { clear = true })
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = lsp_keymaps,
+        callback = function(event)
+          local buffer = event.buf
+          local map = function(lhs, rhs, desc)
+            local existing = vim.fn.maparg(lhs, "n", false, true)
+            if existing.lhs and existing.lhs ~= "" then return end
+            vim.keymap.set("n", lhs, rhs, { buffer = buffer, desc = desc })
+          end
+
+          map("gd", vim.lsp.buf.definition, "LSP: Go to definition")
+          map("gD", vim.lsp.buf.declaration, "LSP: Go to declaration")
+          map("gr", vim.lsp.buf.references, "LSP: Go to references")
+          map("gi", vim.lsp.buf.implementation, "LSP: Go to implementation")
+          map("K", function() vim.lsp.buf.hover({ border = "rounded" }) end, "LSP: Hover")
+          map("<leader>ca", vim.lsp.buf.code_action, "LSP: Code action")
+          map("<leader>rn", vim.lsp.buf.rename, "LSP: Rename symbol")
+        end,
+      })
+
       vim.lsp.enable(servers)
     end,
   },
