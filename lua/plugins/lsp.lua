@@ -150,6 +150,15 @@ return {
         group = lsp_keymaps,
         callback = function(event)
           local buffer = event.buf
+          local name = vim.api.nvim_buf_get_name(buffer)
+          local is_nonfile = name == "" or vim.bo[buffer].buftype ~= "" or name:match("^diffview://") or name:match("^fugitive://")
+          if is_nonfile then
+            vim.schedule(function()
+              vim.lsp.buf_detach_client(buffer, event.data.client_id)
+            end)
+            return
+          end
+
           local map = function(lhs, rhs, desc)
             local existing = vim.fn.maparg(lhs, "n", false, true)
             if existing.lhs and existing.lhs ~= "" then return end

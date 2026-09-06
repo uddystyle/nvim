@@ -9,5 +9,6 @@ repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 "$repo_root/tests/conform-toggle.sh"
 "$repo_root/tests/lsp-attach-keymaps.sh"
 "$repo_root/tests/lsp-keymap-conflicts.sh"
+"$repo_root/tests/lsp-nonfile-detach.sh"
 
 "$repo_root/tests/normal-entrypoint.sh"
