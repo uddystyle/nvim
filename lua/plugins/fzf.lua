@@ -22,23 +22,72 @@ return {
       },
     },
     keys = {
-      { "<leader><space>", function() files({ cwd = root.get() }) end, desc = "Find Files (Root Dir)" },
-      { "<leader>/", function() grep({ cwd = root.get() }) end, desc = "Grep (Root Dir)" },
+      {
+        "<leader><space>",
+        function()
+          files({ cwd = root.get() })
+        end,
+        desc = "Find Files (Root Dir)",
+      },
+      {
+        "<leader>/",
+        function()
+          grep({ cwd = root.get() })
+        end,
+        desc = "Grep (Root Dir)",
+      },
       { "<leader>,", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffer" },
       { "<leader>:", "<cmd>FzfLua command_history<cr>", desc = "Command History" },
       { "<leader>fb", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
       { "<leader>fB", "<cmd>FzfLua buffers<cr>", desc = "Buffers (all)" },
-      { "<leader>fc", function() files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config File" },
-      { "<leader>ff", function() files({ cwd = root.get() }) end, desc = "Find Files (Root Dir)" },
+      {
+        "<leader>fc",
+        function()
+          files({ cwd = vim.fn.stdpath("config") })
+        end,
+        desc = "Find Config File",
+      },
+      {
+        "<leader>ff",
+        function()
+          files({ cwd = root.get() })
+        end,
+        desc = "Find Files (Root Dir)",
+      },
       { "<leader>fF", files, desc = "Find Files (cwd)" },
       { "<leader>fg", "<cmd>FzfLua git_files<cr>", desc = "Find Files (git-files)" },
       { "<leader>fr", "<cmd>FzfLua oldfiles<cr>", desc = "Recent" },
-      { "<leader>fR", function() require("fzf-lua").oldfiles({ cwd = vim.uv.cwd() }) end, desc = "Recent (cwd)" },
-      { "<leader>sg", function() grep({ cwd = root.get() }) end, desc = "Grep (Root Dir)" },
+      {
+        "<leader>fR",
+        function()
+          require("fzf-lua").oldfiles({ cwd = vim.uv.cwd() })
+        end,
+        desc = "Recent (cwd)",
+      },
+      {
+        "<leader>sg",
+        function()
+          grep({ cwd = root.get() })
+        end,
+        desc = "Grep (Root Dir)",
+      },
       { "<leader>sG", grep, desc = "Grep (cwd)" },
-      { "<leader>sw", function() require("fzf-lua").grep_cword({ cwd = root.get() }) end, desc = "Word (Root Dir)" },
+      {
+        "<leader>sw",
+        function()
+          require("fzf-lua").grep_cword({ cwd = root.get() })
+        end,
+        desc = "Word (Root Dir)",
+      },
       { "<leader>sW", "<cmd>FzfLua grep_cword<cr>", desc = "Word (cwd)" },
-      { "<leader>sw", function() require("fzf-lua").grep_visual({ cwd = root.get() }) end, mode = "x", desc = "Selection (Root Dir)" },
+      {
+        "<leader>sw",
+        function()
+          require("fzf-lua").grep_visual({ cwd = root.get() })
+        end,
+        mode = "x",
+        desc = "Selection (Root Dir)",
+      },
       { "<leader>sW", "<cmd>FzfLua grep_visual<cr>", mode = "x", desc = "Selection (cwd)" },
       { '<leader>s"', "<cmd>FzfLua registers<cr>", desc = "Registers" },
       { "<leader>s/", "<cmd>FzfLua search_history<cr>", desc = "Search History" },
@@ -64,7 +113,11 @@ return {
         function()
           require("fzf-lua").fzf_exec(require("config.themes").names(), {
             prompt = "Themes> ",
-            actions = { ["default"] = function(selected) require("config.themes").apply(selected[1]) end },
+            actions = {
+              ["default"] = function(selected)
+                require("config.themes").apply(selected[1])
+              end,
+            },
           })
         end,
         desc = "Select Colorscheme",

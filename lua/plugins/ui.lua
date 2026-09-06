@@ -31,7 +31,11 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     init = function()
       vim.g.lualine_laststatus = vim.o.laststatus
-      if vim.fn.argc(-1) > 0 then vim.o.statusline = " " else vim.o.laststatus = 0 end
+      if vim.fn.argc(-1) > 0 then
+        vim.o.statusline = " "
+      else
+        vim.o.laststatus = 0
+      end
     end,
     opts = {
       options = {
@@ -48,14 +52,23 @@ return {
             symbols = { added = "+", modified = "~", removed = "-" },
             source = function()
               local status = vim.b.gitsigns_status_dict
-              if status then return { added = status.added, modified = status.changed, removed = status.removed } end
+              if status then
+                return { added = status.added, modified = status.changed, removed = status.removed }
+              end
             end,
           },
           { "diagnostics", symbols = { error = " ", warn = " ", info = " ", hint = " " } },
         },
         lualine_c = { { "filename", path = 1 } },
         lualine_x = {
-          { function() return vim.fn.fnamemodify(root.get(), ":~") end, cond = function() return root.get() ~= vim.uv.cwd() end },
+          {
+            function()
+              return vim.fn.fnamemodify(root.get(), ":~")
+            end,
+            cond = function()
+              return root.get() ~= vim.uv.cwd()
+            end,
+          },
           { "filetype", icon_only = false, padding = { left = 1, right = 1 } },
         },
         lualine_y = { { "progress", separator = " ", padding = { left = 1, right = 1 } } },
