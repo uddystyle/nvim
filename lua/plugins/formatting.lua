@@ -59,7 +59,6 @@ return {
         go = { "goimports", "gofmt" },
         rust = { "rustfmt" },
         swift = { "swift_format" },
-        ruby = { "prettier" },
       },
       formatters = {
         injected = { options = { ignore_errors = true } },

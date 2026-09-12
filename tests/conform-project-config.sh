@@ -9,6 +9,7 @@ mkdir -p "$tmpdir/no-config" "$tmpdir/with-config"
 printf 'const value={answer:42}\n' > "$tmpdir/no-config/sample.ts"
 printf 'const value={answer:42}\n' > "$tmpdir/with-config/sample.ts"
 printf '{}\n' > "$tmpdir/with-config/.prettierrc"
+printf 'puts :hello\n' > "$tmpdir/with-config/sample.rb"
 
 check_prettier() {
   local file=$1 expected=$2
@@ -20,3 +21,8 @@ check_prettier() {
 
 check_prettier "$tmpdir/no-config/sample.ts" false
 check_prettier "$tmpdir/with-config/sample.ts" true
+
+NVIM_STANDALONE_SKIP_MASON_INSTALL=1 "$repo_root/scripts/nvim-standalone" --headless "$tmpdir/with-config/sample.rb" \
+  '+Lazy load conform.nvim' \
+  '+lua assert(not vim.tbl_contains(require("conform").list_formatters_for_buffer(0), "prettier"), "Ruby must not use Prettier")' \
+  '+qa'

@@ -21,7 +21,9 @@ end
 
 function M.apply(name)
   local plugin = plugins[name]
-  if not plugin then error("Unknown theme: " .. name) end
+  if not plugin then
+    error("Unknown theme: " .. name)
+  end
   require("lazy").load({ plugins = { plugin } })
   vim.cmd.colorscheme(name)
 end

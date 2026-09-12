@@ -25,12 +25,12 @@ NVIM_STANDALONE_SKIP_MASON_INSTALL=1 "$repo_root/scripts/nvim-standalone" --head
 
 NVIM_STANDALONE_SKIP_MASON_INSTALL=1 "$repo_root/scripts/nvim-standalone" --headless "$tmpdir/sample.rs" \
   '+sleep 10000m' \
-  '+lua local clients={}; for _, client in ipairs(vim.lsp.get_clients()) do clients[client.name]=true end; assert(clients.rust_analyzer, "Rust analyzer did not attach"); assert(vim.fn.maparg(",fo", "n", false, true).callback, "Rust format keymap is missing"); assert(vim.fn.maparg(",re", "n", false, true).callback, "Rust rename keymap is missing")' \
+  '+lua local clients={}; for _, client in ipairs(vim.lsp.get_clients()) do clients[client.name]=true end; assert(clients.rust_analyzer, "Rust analyzer did not attach"); assert(vim.g.rustfmt_autosave ~= 1, "Rust formatting must be managed by Conform"); assert(vim.fn.maparg(",fo", "n", false, true).callback, "Rust format keymap is missing"); assert(vim.fn.maparg(",re", "n", false, true).callback, "Rust rename keymap is missing")' \
   '+qa'
 
 NVIM_STANDALONE_SKIP_MASON_INSTALL=1 "$repo_root/scripts/nvim-standalone" --headless "$tmpdir/sample.go" \
   '+sleep 10000m' \
-  '+lua local count=0; for _, client in ipairs(vim.lsp.get_clients()) do if client.name == "gopls" then count=count+1 end end; assert(count == 1, "expected one gopls client, got " .. count)' \
+  '+lua local count=0; for _, client in ipairs(vim.lsp.get_clients()) do if client.name == "gopls" then count=count+1 end end; assert(count == 1, "expected one gopls client, got " .. count); assert(_GO_NVIM_CFG.lsp_cfg == false, "gopls must be configured only in lsp.lua")' \
   '+qa'
 
 NVIM_STANDALONE_SKIP_MASON_INSTALL=1 "$repo_root/scripts/nvim-standalone" --headless "$tmpdir/unformatted.lua" '+write' '+qa' >/dev/null 2>&1
