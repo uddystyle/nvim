@@ -2,28 +2,17 @@ local root = require("config.root")
 
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "sainnhe/everforest",
     lazy = vim.env.NVIM_STANDALONE_TEST == "1",
     priority = 1000,
-    opts = {
-      flavour = "macchiato",
-      no_italic = true,
-      term_colors = true,
-      transparent_background = false,
-      integrations = {
-        fidget = true,
-        gitsigns = true,
-        harpoon = true,
-        mason = true,
-        render_markdown = true,
-        which_key = true,
-      },
-    },
-    config = function(_, opts)
-      require("catppuccin").setup(opts)
-      vim.cmd.colorscheme("catppuccin-macchiato")
+    init = function()
+      vim.g.everforest_background = "hard"
+      vim.g.everforest_colors_override = { bg0 = { "#1e2326", "233" } }
+      vim.g.everforest_disable_italic_comment = 1
+      vim.g.everforest_enable_italic = 0
+      vim.g.everforest_better_performance = 1
     end,
+    config = function() vim.cmd.colorscheme("everforest") end,
   },
   {
     "nvim-lualine/lualine.nvim",

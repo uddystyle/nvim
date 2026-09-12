@@ -1,6 +1,7 @@
 local M = {}
 
 local plugins = {
+  ["catppuccin-macchiato"] = "catppuccin",
   ["tokyonight"] = "tokyonight.nvim",
   ["gruvbox"] = "gruvbox",
   ["gruvbox-minimal"] = "gruvbox-minimal.nvim",

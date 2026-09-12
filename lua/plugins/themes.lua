@@ -7,6 +7,26 @@ end, {
 })
 
 return {
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    lazy = true,
+    priority = 1000,
+    opts = {
+      flavour = "macchiato",
+      no_italic = true,
+      term_colors = true,
+      transparent_background = false,
+      integrations = {
+        fidget = true,
+        gitsigns = true,
+        harpoon = true,
+        mason = true,
+        render_markdown = true,
+        which_key = true,
+      },
+    },
+  },
   { "folke/tokyonight.nvim", lazy = true, priority = 1000, opts = { style = "night", terminal_colors = true, transparent = false } },
   { "morhetz/gruvbox", lazy = true, priority = 1000 },
   {
@@ -20,7 +40,6 @@ return {
       })
     end,
   },
-  { "sainnhe/everforest", lazy = true, priority = 1000, init = function() vim.g.everforest_background = "hard" end },
   { "xero/miasma.nvim", lazy = true, priority = 1000 },
   {
     "navarasu/onedark.nvim",
