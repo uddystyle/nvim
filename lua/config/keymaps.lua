@@ -56,10 +56,7 @@ keymap.set(
   { noremap = true, silent = true, desc = "Open diagnostics list" }
 )
 
--- Move
-keymap.set("n", "<C-h>", "^", opts)
-keymap.set("n", "<C-l>", "$", opts)
-
+-- Normal-mode Ctrl+h/j/k/l is owned by after/plugin/herdr-navigation.lua.
 keymap.set("v", "<C-h>", "^", opts)
 keymap.set("v", "<C-l>", "$", opts)
 
