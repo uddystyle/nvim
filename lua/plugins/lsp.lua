@@ -96,12 +96,17 @@ return {
       vim.lsp.config("vtsls", {
         on_attach = function(client, buffer)
           vim.keymap.set("n", "<leader>co", function()
-            client:exec_cmd({ command = "typescript.organizeImports", arguments = { vim.api.nvim_buf_get_name(buffer) } })
+            client:exec_cmd({
+              command = "typescript.organizeImports",
+              arguments = { vim.api.nvim_buf_get_name(buffer) },
+            })
           end, { buffer = buffer, desc = "Organize Imports" })
           vim.keymap.set("n", "<leader>cR", function()
             local old_name = vim.api.nvim_buf_get_name(buffer)
             vim.ui.input({ prompt = "New file name: ", default = old_name, completion = "file" }, function(new_name)
-              if not new_name or new_name == "" or new_name == old_name then return end
+              if not new_name or new_name == "" or new_name == old_name then
+                return
+              end
               vim.lsp.util.rename(old_name, new_name)
               vim.cmd.edit(vim.fn.fnameescape(new_name))
             end)
@@ -119,7 +124,9 @@ return {
 
       vim.lsp.config("rust_analyzer", {
         on_attach = function(_, buffer)
-          vim.keymap.set("n", "<leader>fo", function() vim.lsp.buf.format({ async = true }) end, { buffer = buffer, desc = "Format (rustfmt)" })
+          vim.keymap.set("n", "<leader>fo", function()
+            vim.lsp.buf.format({ async = true })
+          end, { buffer = buffer, desc = "Format (rustfmt)" })
           vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, { buffer = buffer, desc = "Rename Symbol" })
         end,
         settings = {
@@ -151,7 +158,10 @@ return {
         callback = function(event)
           local buffer = event.buf
           local name = vim.api.nvim_buf_get_name(buffer)
-          local is_nonfile = name == "" or vim.bo[buffer].buftype ~= "" or name:match("^diffview://") or name:match("^fugitive://")
+          local is_nonfile = name == ""
+            or vim.bo[buffer].buftype ~= ""
+            or name:match("^diffview://")
+            or name:match("^fugitive://")
           if is_nonfile then
             vim.schedule(function()
               vim.lsp.buf_detach_client(buffer, event.data.client_id)
@@ -161,7 +171,9 @@ return {
 
           local map = function(lhs, rhs, desc)
             local existing = vim.fn.maparg(lhs, "n", false, true)
-            if existing.lhs and existing.lhs ~= "" then return end
+            if existing.lhs and existing.lhs ~= "" then
+              return
+            end
             vim.keymap.set("n", lhs, rhs, { buffer = buffer, desc = desc })
           end
 
@@ -169,7 +181,9 @@ return {
           map("gD", vim.lsp.buf.declaration, "LSP: Go to declaration")
           map("gr", vim.lsp.buf.references, "LSP: Go to references")
           map("gi", vim.lsp.buf.implementation, "LSP: Go to implementation")
-          map("K", function() vim.lsp.buf.hover({ border = "rounded" }) end, "LSP: Hover")
+          map("K", function()
+            vim.lsp.buf.hover({ border = "rounded" })
+          end, "LSP: Hover")
           map("<leader>ca", vim.lsp.buf.code_action, "LSP: Code action")
           map("<leader>rn", vim.lsp.buf.rename, "LSP: Rename symbol")
         end,

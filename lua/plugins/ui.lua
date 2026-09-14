@@ -12,7 +12,9 @@ return {
       vim.g.everforest_enable_italic = 0
       vim.g.everforest_better_performance = 1
     end,
-    config = function() vim.cmd.colorscheme("everforest") end,
+    config = function()
+      vim.cmd.colorscheme("everforest")
+    end,
   },
   {
     "nvim-lualine/lualine.nvim",
