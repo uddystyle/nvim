@@ -100,25 +100,32 @@ keymap.set(
   { noremap = true, silent = true, desc = "Open a terminal in a horizontal window" }
 )
 
-local term_buf = nil
+local term_buf
+local previous_buf
 
 local function toggle_term()
-  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
-    local term_win = vim.fn.bufwinnr(term_buf)
-    if term_win ~= -1 then
-      vim.api.nvim_win_close(vim.fn.win_getid(term_win), true)
-    else
-      vim.cmd("buffer " .. term_buf)
+  local current_buf = vim.api.nvim_get_current_buf()
+
+  if current_buf == term_buf then
+    if vim.api.nvim_get_mode().mode == "t" then
+      vim.cmd.stopinsert()
     end
+    if previous_buf and vim.api.nvim_buf_is_valid(previous_buf) then
+      vim.api.nvim_set_current_buf(previous_buf)
+    else
+      vim.cmd.enew()
+    end
+    return
+  end
+
+  previous_buf = current_buf
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    vim.api.nvim_set_current_buf(term_buf)
+    vim.cmd.startinsert()
   else
-    vim.cmd("terminal zsh")
+    vim.cmd.terminal()
     term_buf = vim.api.nvim_get_current_buf()
   end
 end
 
-keymap.set(
-  "n",
-  "<leader>tt",
-  toggle_term,
-  { noremap = true, silent = true, desc = "Open a terminal in a new buffer" }
-)
+keymap.set({ "n", "t" }, "<leader>tt", toggle_term, { silent = true, desc = "Toggle terminal buffer" })

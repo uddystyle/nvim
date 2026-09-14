@@ -6,7 +6,6 @@ vim.cmd([[
 ]])
 
 vim.cmd("language messages en_US.utf-8")
-vim.cmd("filetype plugin on")
 
 vim.o.guicursor = ""
 vim.o.cursorline = false
@@ -29,7 +28,6 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 -- Basics
-vim.o.ttyfast = true
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false

@@ -7,12 +7,6 @@ vim.api.nvim_create_autocmd("TermOpen", {
   command = [[setlocal nonumber norelativenumber]],
 })
 
--- Turn off paste mode when leaving insert
-vim.api.nvim_create_autocmd("InsertLeave", {
-  pattern = "*",
-  command = "set nopaste",
-})
-
 -- Fix conceallevel for json files
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "json", "jsonc" },
@@ -53,15 +47,6 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 -- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 --   virtual_text = false,
 -- })
-
--- Manage highlight the buffer enter/leave
-vim.cmd([[
-  augroup CursorHighlight
-    autocmd!
-    autocmd BufEnter * setlocal winhighlight=Normal:Normal
-    autocmd BufLeave * setlocal winhighlight=CursorLine:Normal
-  augroup END
-]])
 
 -- For Go lang
 vim.api.nvim_create_autocmd("FileType", {
