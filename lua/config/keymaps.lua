@@ -23,10 +23,6 @@ keymap.set("n", "ss", "<Cmd>split<cr>", opts)
 keymap.set("n", "sv", "<Cmd>vsplit<cr>", opts)
 
 -- diagnostics
-keymap.set("n", "C-j", function()
-  vim.diagnostic.jump({ count = 1 })
-end, opts)
-
 keymap.set("n", "<leader>cd", function()
   local _, winnr = vim.diagnostic.open_float({ border = "rounded" })
   if winnr then
@@ -106,7 +102,7 @@ keymap.set(
 
 local term_buf = nil
 
-function ToggleTerm()
+local function toggle_term()
   if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
     local term_win = vim.fn.bufwinnr(term_buf)
     if term_win ~= -1 then
@@ -123,6 +119,6 @@ end
 keymap.set(
   "n",
   "<leader>tt",
-  "<Cmd>lua ToggleTerm()<CR>",
+  toggle_term,
   { noremap = true, silent = true, desc = "Open a terminal in a new buffer" }
 )

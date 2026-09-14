@@ -16,9 +16,6 @@ local function navigate(window_command, direction)
       herdr = "herdr"
     end
     vim.fn.system({ herdr, "pane", "focus", "--direction", direction, "--pane", pane })
-  elseif vim.env.TMUX and vim.env.TMUX ~= "" then
-    local tmux_directions = { left = "Left", down = "Down", up = "Up", right = "Right" }
-    pcall(vim.cmd, "TmuxNavigate" .. tmux_directions[direction])
   end
 end
 
