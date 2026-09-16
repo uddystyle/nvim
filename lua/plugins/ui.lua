@@ -8,9 +8,16 @@ local transparent_groups = {
   "FoldColumn",
 }
 
-local function apply_transparent_background()
+local function apply_theme_overrides()
   for _, group in ipairs(transparent_groups) do
     vim.cmd(("highlight %s guibg=NONE ctermbg=NONE"):format(group))
+  end
+
+  for group, source in pairs({ WhichKeyNormal = "NormalFloat", WhichKeyBorder = "FloatBorder" }) do
+    local highlight = vim.api.nvim_get_hl(0, { name = source, link = false })
+    highlight.bg = 0x232a2e
+    highlight.ctermbg = nil
+    vim.api.nvim_set_hl(0, group, highlight)
   end
 end
 
@@ -29,7 +36,7 @@ return {
     config = function()
       vim.api.nvim_create_autocmd("ColorScheme", {
         group = vim.api.nvim_create_augroup("transparent_background", { clear = true }),
-        callback = apply_transparent_background,
+        callback = apply_theme_overrides,
       })
       vim.cmd.colorscheme("everforest")
     end,
