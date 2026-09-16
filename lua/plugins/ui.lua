@@ -8,17 +8,23 @@ local transparent_groups = {
   "FoldColumn",
 }
 
+local function set_background(group, source)
+  local highlight = vim.api.nvim_get_hl(0, { name = source or group, link = false })
+  highlight.bg = 0x232a2e
+  highlight.ctermbg = nil
+  vim.api.nvim_set_hl(0, group, highlight)
+end
+
 local function apply_theme_overrides()
   for _, group in ipairs(transparent_groups) do
     vim.cmd(("highlight %s guibg=NONE ctermbg=NONE"):format(group))
   end
 
-  for group, source in pairs({ WhichKeyNormal = "NormalFloat", WhichKeyBorder = "FloatBorder" }) do
-    local highlight = vim.api.nvim_get_hl(0, { name = source, link = false })
-    highlight.bg = 0x232a2e
-    highlight.ctermbg = nil
-    vim.api.nvim_set_hl(0, group, highlight)
+  for _, group in ipairs({ "NormalFloat", "FloatBorder", "FloatTitle", "Pmenu", "PmenuSbar" }) do
+    set_background(group)
   end
+  set_background("WhichKeyNormal", "NormalFloat")
+  set_background("WhichKeyBorder", "FloatBorder")
 end
 
 return {
