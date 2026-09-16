@@ -26,6 +26,9 @@ return {
           ["enter"] = open_file,
         },
       },
+      fzf_opts = {
+        ["--gutter"] = " ",
+      },
       files = {
         hidden = true,
         no_ignore = true,
