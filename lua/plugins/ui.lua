@@ -1,5 +1,19 @@
 local root = require("config.root")
 
+local transparent_groups = {
+  "Normal",
+  "NormalNC",
+  "SignColumn",
+  "EndOfBuffer",
+  "FoldColumn",
+}
+
+local function apply_transparent_background()
+  for _, group in ipairs(transparent_groups) do
+    vim.cmd(("highlight %s guibg=NONE ctermbg=NONE"):format(group))
+  end
+end
+
 return {
   {
     "sainnhe/everforest",
@@ -13,6 +27,10 @@ return {
       vim.g.everforest_better_performance = 1
     end,
     config = function()
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        group = vim.api.nvim_create_augroup("transparent_background", { clear = true }),
+        callback = apply_transparent_background,
+      })
       vim.cmd.colorscheme("everforest")
     end,
   },

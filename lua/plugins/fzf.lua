@@ -8,11 +8,24 @@ local function grep(opts)
   require("fzf-lua").live_grep(opts or {})
 end
 
+local function open_file(selected, opts)
+  require("fzf-lua.actions").file_edit_or_qf(selected, opts)
+  if #selected == 1 and vim.bo.filetype == "" then
+    vim.cmd("filetype detect")
+  end
+end
+
 return {
   {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
+      actions = {
+        files = {
+          true,
+          ["enter"] = open_file,
+        },
+      },
       files = {
         hidden = true,
         no_ignore = true,
