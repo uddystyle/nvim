@@ -17,23 +17,9 @@ local servers = {
   "zls",
 }
 
-local mason_packages = {
-  "bash-language-server",
-  "css-lsp",
-  "gopls",
-  "html-lsp",
-  "json-lsp",
-  "lua-language-server",
-  "marksman",
-  "pyright",
-  "ruby-lsp",
-  "rust-analyzer",
-  "svelte-language-server",
-  "tailwindcss-language-server",
-  "taplo",
-  "vtsls",
-  "yaml-language-server",
-  "zls",
+-- CLI tools installed directly from the Mason registry. LSP servers are
+-- installed by mason-lspconfig from the mapping, so they are not listed here.
+local mason_tools = {
   "black",
   "goimports",
   "prettier",
@@ -64,7 +50,7 @@ return {
       if vim.env.NVIM_STANDALONE_SKIP_MASON_INSTALL ~= "1" then
         local registry = require("mason-registry")
         registry.refresh(function()
-          for _, package_name in ipairs(mason_packages) do
+          for _, package_name in ipairs(mason_tools) do
             local ok, package = pcall(registry.get_package, package_name)
             if ok and not package:is_installed() and not package:is_installing() then
               package:install()

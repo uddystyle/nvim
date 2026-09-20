@@ -2,14 +2,10 @@ local M = {}
 
 local plugins = {
   ["catppuccin-macchiato"] = "catppuccin",
-  ["tokyonight"] = "tokyonight.nvim",
   ["gruvbox"] = "gruvbox",
-  ["gruvbox-minimal"] = "gruvbox-minimal.nvim",
   ["everforest"] = "everforest",
-  ["miasma"] = "miasma.nvim",
   ["onedark"] = "onedark.nvim",
   ["kanagawa"] = "kanagawa.nvim",
-  ["no-clown-fiesta"] = "no-clown-fiesta.nvim",
   ["kintsugi"] = "kintsugi-nvim",
 }
 

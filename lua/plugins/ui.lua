@@ -1,52 +1,6 @@
 local root = require("config.root")
 
-local transparent_groups = {
-  "Normal",
-  "NormalNC",
-  "SignColumn",
-  "EndOfBuffer",
-  "FoldColumn",
-}
-
-local function set_background(group, source)
-  local highlight = vim.api.nvim_get_hl(0, { name = source or group, link = false })
-  highlight.bg = 0x232a2e
-  highlight.ctermbg = nil
-  vim.api.nvim_set_hl(0, group, highlight)
-end
-
-local function apply_theme_overrides()
-  for _, group in ipairs(transparent_groups) do
-    vim.cmd(("highlight %s guibg=NONE ctermbg=NONE"):format(group))
-  end
-
-  for _, group in ipairs({ "NormalFloat", "FloatBorder", "FloatTitle", "Pmenu", "PmenuSbar" }) do
-    set_background(group)
-  end
-  set_background("WhichKeyNormal", "NormalFloat")
-  set_background("WhichKeyBorder", "FloatBorder")
-end
-
 return {
-  {
-    "sainnhe/everforest",
-    lazy = vim.env.NVIM_STANDALONE_TEST == "1",
-    priority = 1000,
-    init = function()
-      vim.g.everforest_background = "hard"
-      vim.g.everforest_colors_override = { bg0 = { "#1e2326", "233" } }
-      vim.g.everforest_disable_italic_comment = 1
-      vim.g.everforest_enable_italic = 0
-      vim.g.everforest_better_performance = 1
-    end,
-    config = function()
-      vim.api.nvim_create_autocmd("ColorScheme", {
-        group = vim.api.nvim_create_augroup("transparent_background", { clear = true }),
-        callback = apply_theme_overrides,
-      })
-      vim.cmd.colorscheme("everforest")
-    end,
-  },
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
