@@ -5,6 +5,10 @@ local opts = { noremap = true, silent = true }
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
 
+-- Delete without overwriting the system clipboard
+keymap.set({ "n", "x" }, "d", '"_d', opts)
+keymap.set({ "n", "x" }, "x", '"_x', opts)
+
 -- Delete a word backwords
 keymap.set("n", "dw", "vb_d")
 
