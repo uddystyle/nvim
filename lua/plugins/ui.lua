@@ -1,5 +1,20 @@
 local root = require("config.root")
 
+-- Herdr.app turns glyphs below ~1.7:1 contrast white, which hits the b/c separators
+-- (bg3 on bg1 is 1.34:1). Darken c to bg_dim so they stay at 1.77:1.
+local function lualine_theme()
+  if vim.g.colors_name ~= "everforest" then
+    return "auto"
+  end
+  local theme = require("lualine.utils.loader").load_theme("everforest")
+  for mode, sections in pairs(theme) do
+    if mode ~= "inactive" then
+      sections.c.bg = "#1e2326"
+    end
+  end
+  return theme
+end
+
 return {
   {
     "nvim-lualine/lualine.nvim",
@@ -15,7 +30,7 @@ return {
     end,
     opts = {
       options = {
-        theme = "auto",
+        theme = lualine_theme,
         globalstatus = vim.o.laststatus == 3,
         disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
       },
