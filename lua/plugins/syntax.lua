@@ -1,36 +1,47 @@
+local parsers = {
+  "bash",
+  "c",
+  "cpp",
+  "css",
+  "go",
+  "graphql",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "python",
+  "rust",
+  "scss",
+  "sql",
+  "svelte",
+  "toml",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "zig",
+}
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      ensure_installed = {
-        "bash",
-        "c",
-        "cpp",
-        "css",
-        "go",
-        "graphql",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "python",
-        "rust",
-        "scss",
-        "sql",
-        "svelte",
-        "toml",
-        "tsx",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "zig",
-      },
-      highlight = { enable = true },
-      indent = { enable = true },
-    },
+    branch = "main",
+    lazy = false,
+    build = function()
+      require("nvim-treesitter").install(parsers):wait(300000)
+    end,
+    config = function()
+      require("nvim-treesitter").setup()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = parsers,
+        callback = function(event)
+          if pcall(vim.treesitter.start, event.buf) then
+            vim.bo[event.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
+    end,
   },
   {
     "kevinhwang91/nvim-ufo",

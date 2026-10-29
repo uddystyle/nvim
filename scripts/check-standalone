@@ -14,3 +14,4 @@ repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 "$repo_root/tests/theme-lazy-loading.sh"
 
 "$repo_root/tests/normal-entrypoint.sh"
+"$repo_root/tests/treesitter-markdown.sh"
